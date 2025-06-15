@@ -3,10 +3,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Custom theme variables */
+@theme {
+  --color-header: #1f2a3a;
+  --color-sidebar: #243548;
+  --color-sidebar-selected: #3f5a7d;
+  --color-tableHeader: #f9fafb;
+  --color-button: #3b82f6;
+  --color-deposit: #10b981;
+  --color-withdrawal: #ef4444;
+  --color-border: #e5e7eb;
 }
 
 @theme inline {
@@ -122,5 +128,8 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 }
