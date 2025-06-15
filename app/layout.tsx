@@ -1,19 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto_Flex as Roboto } from "next/font/google";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
 import Sidebar from "@/components/layouts/Sidebar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata: Metadata = {
   title: "My Digital Wallet",
@@ -27,10 +19,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`flex h-screen ${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={roboto.className}>
+      <body className="flex h-screen antialiased">
         {/* Sidebar Area */}
         <aside className="w-40 h-full bg-amber-300 flex">
           <Sidebar />
