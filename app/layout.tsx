@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className={roboto.className}>
       <body className="grid grid-rows-[1fr_2rem] grid-cols-[16rem_1fr] h-screen antialiased">
         {/* Sidebar Area */}
-        <aside className="w-full bg-sidebar-selected flex">
+        <aside className="w-full bg-side flex">
           <Sidebar />
         </aside>
 
