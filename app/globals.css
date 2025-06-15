@@ -6,6 +6,7 @@
 /* Custom theme variables */
 @theme {
   --color-header: #1f2a3a;
+  --color-footer: #c0d2eb;
   --color-sidebar: #243548;
   --color-sidebar-selected: #3f5a7d;
   --color-tableHeader: #f9fafb;

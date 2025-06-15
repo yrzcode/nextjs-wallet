@@ -20,23 +20,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className="flex h-screen antialiased">
+      <body className="grid grid-rows-[1fr_2rem] grid-cols-[16rem_1fr] h-screen antialiased">
         {/* Sidebar Area */}
-        <aside className="w-40 h-full bg-amber-300 flex">
+        <aside className="w-full bg-sidebar-selected flex">
           <Sidebar />
         </aside>
 
         {/* Main Area */}
-        <main className="flex-1 flex flex-col">
-          <header className="h-16 bg-amber-500">
+        <main className="flex flex-col">
+          <nav className="h-16 bg-header">
             <Header />
-          </header>
+          </nav>
+
           {/* Pages */}
-          <section className="flex-1 bg-amber-200">{children}</section>
-          <footer className="h-8 bg-amber-500">
-            <Footer />
-          </footer>
+          <div className="flex-1 bg-white">{children}</div>
         </main>
+
+        {/* Footer Area */}
+        <footer className="col-span-2 h-full bg-footer">
+          <Footer />
+        </footer>
       </body>
     </html>
   );
