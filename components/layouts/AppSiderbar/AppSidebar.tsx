@@ -1,4 +1,7 @@
 import uiConfig from "@/config/ui.json";
+import UserProfile from "./UserProfile";
+import Link from "next/link";
+import { Button } from "../../ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -11,8 +14,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Button } from "../../ui/button";
-import UserProfile from "./UserProfile";
 
 const AppSidebar = () => {
   const items = uiConfig.sidebarItems;
@@ -29,10 +30,10 @@ const AppSidebar = () => {
               {items.map((item) => (
                 <SidebarMenuItem key={item.name}>
                   <SidebarMenuButton asChild>
-                    <a href={item.path}>
+                    <Link href={item.path}>
                       <span>{item.icon}</span>
                       <span>{item.name}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
