@@ -1,4 +1,4 @@
-import uiConfig from "@/config/ui.json";
+import uiConfig from "@/config/ui";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
 import Image from "next/image";
