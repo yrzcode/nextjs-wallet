@@ -4,7 +4,7 @@ import { Roboto_Flex as Roboto } from "next/font/google";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppFooter from "@/components/layouts/AppFooter";
 import AppNavbar from "@/components/layouts/AppNavbar";
-import AppSidebar from "@/components/layouts/AppSidebar";
+import AppSidebar from "@/components/layouts/AppSiderbar/AppSidebar";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
 

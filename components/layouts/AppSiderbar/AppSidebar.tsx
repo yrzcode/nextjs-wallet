@@ -11,6 +11,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Button } from "../../ui/button";
+import UserProfile from "./UserProfile";
 
 const AppSidebar = () => {
   const items = uiConfig.sidebarItems;
@@ -38,7 +40,15 @@ const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="p-0" />
+      <SidebarFooter className="bg-side px-4 py-2">
+        <Button
+          variant="secondary"
+          size="xl"
+          className="text-white border-2 border-sidebar-profile bg-side hover:bg-sidebar-profile"
+        >
+          <UserProfile />
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   );
 };
