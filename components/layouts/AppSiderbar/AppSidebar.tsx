@@ -16,16 +16,24 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const AppSidebar = () => {
-  const items = uiConfig.sidebarItems;
+  const sidebarItems = uiConfig.sidebarItems;
+  const profileMenuItems = uiConfig.profileMenuItems;
+
   return (
     <Sidebar className="text-white">
       <SidebarHeader className="grid place-items-center  bg-side-logo p-0 h-20 text-white">
         <Image
           src="/images/logo.png"
           alt="Cloud Wallet Logo"
-          width={200}
+          width={220}
           height={90}
         />
       </SidebarHeader>
@@ -34,7 +42,7 @@ const AppSidebar = () => {
           <SidebarGroupLabel className="text-white">Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => {
+              {sidebarItems.map((item) => {
                 const Icon = FaIcons[item.icon as keyof typeof FaIcons];
                 return (
                   <SidebarMenuItem key={item.name}>
@@ -52,13 +60,32 @@ const AppSidebar = () => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="bg-side px-4 py-2">
-        <Button
-          variant="secondary"
-          size="xl"
-          className="text-white border-2 border-sidebar-profile bg-side hover:bg-sidebar-profile"
-        >
-          <UserProfile />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="secondary"
+              size="xl"
+              className="text-white border-2 border-sidebar-profile bg-side hover:bg-sidebar-profile"
+            >
+              <UserProfile />
+            </Button>
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent
+            side="top"
+            className="w-[14rem] bg-sidebar-profile-menu"
+          >
+            {profileMenuItems.map((item) => {
+              const Icon = FaIcons[item.icon as keyof typeof FaIcons];
+              return (
+                <DropdownMenuItem key={item.name}>
+                  <Icon className="text-white" />
+                  <span>{item.name}</span>
+                </DropdownMenuItem>
+              );
+            })}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </SidebarFooter>
     </Sidebar>
   );

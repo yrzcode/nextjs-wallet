@@ -15,5 +15,15 @@
       "icon": "FaRegChartBar",
       "path": "/summary"
     }
+  ],
+  "profileMenuItems": [
+    {
+      "name": "Account",
+      "icon": "FaUserCircle"
+    },
+    {
+      "name": "Sign out",
+      "icon": "FaSignOutAlt"
+    }
   ]
 }
