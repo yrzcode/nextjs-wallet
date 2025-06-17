@@ -6,8 +6,9 @@
 /* Custom theme variables */
 @theme {
   --color-header: #1f2a3a;
-  --color-footer: #fff;
+  --color-footer: #3f5a7d;
   --color-side: #243548;
+  --color-side-logo: #2C3D53;
   --color-sidebar-selected: #3f5a7d;
   --color-tableHeader: #f9fafb;
   --color-button: #3b82f6;
@@ -132,5 +133,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .bg-side {
+    background-color: var(--color-side);
   }
 }

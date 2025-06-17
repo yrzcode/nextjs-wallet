@@ -1,0 +1,19 @@
+{
+  "sidebarItems": [
+    {
+      "name": "Transactions",
+      "icon": "💰",
+      "path": "/transactions"
+    },
+    {
+      "name": "Balance",
+      "icon": "💰",
+      "path": "/balance"
+    },
+    {
+      "name": "Summary",
+      "icon": "💰",
+      "path": "/deposits"
+    }
+  ]
+}

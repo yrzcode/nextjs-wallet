@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import { Roboto_Flex as Roboto } from "next/font/google";
 import Footer from "@/components/layouts/Footer";
 import Header from "@/components/layouts/Header";
-import Sidebar from "@/components/layouts/Sidebar";
+import Sidebar from "@/components/layouts/AppSidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
 
@@ -20,26 +21,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className="grid grid-rows-[1fr_2rem] grid-cols-[16rem_1fr] h-screen antialiased">
-        {/* Sidebar Area */}
-        <aside className="w-full bg-side flex">
-          <Sidebar />
-        </aside>
+      <body className="antialiased h-screen">
+        <div>
+          <SidebarProvider>
+            <Sidebar />
 
-        {/* Main Area */}
-        <main className="flex flex-col">
-          <nav className="h-16 bg-header">
-            <Header />
-          </nav>
+            <div className="flex flex-col w-full">
+              <main className="flex flex-col flex-1">
+                <nav className="h-20 bg-header">
+                  <SidebarTrigger
+                    className="text-white h-14 w-14"
+                    iconSize={30}
+                  />
+                  <Header />
+                </nav>
+                <div className="flex-1 bg-white">{children}</div>
+              </main>
 
-          {/* Pages */}
-          <div className="flex-1 bg-white">{children}</div>
-        </main>
-
-        {/* Footer Area */}
-        <footer className="col-span-2 h-full bg-footer">
-          <Footer />
-        </footer>
+              <footer className="bg-footer h-8">
+                <Footer />
+              </footer>
+            </div>
+          </SidebarProvider>
+        </div>
       </body>
     </html>
   );
