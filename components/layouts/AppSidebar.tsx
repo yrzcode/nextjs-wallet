@@ -10,20 +10,18 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarSeparator,
 } from "@/components/ui/sidebar";
 
 const AppSidebar = () => {
   const items = uiConfig.sidebarItems;
   return (
-    <Sidebar>
+    <Sidebar className="text-white">
       <SidebarHeader className="bg-side-logo p-0 h-20 text-white">
         Logo
       </SidebarHeader>
-      <SidebarSeparator />
       <SidebarContent className="bg-side">
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-white">Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

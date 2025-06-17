@@ -1,10 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto_Flex as Roboto } from "next/font/google";
-import Footer from "@/components/layouts/Footer";
-import Header from "@/components/layouts/Header";
-import Sidebar from "@/components/layouts/AppSidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import AppFooter from "@/components/layouts/AppFooter";
+import AppNavbar from "@/components/layouts/AppNavbar";
+import AppSidebar from "@/components/layouts/AppSidebar";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
 
@@ -24,22 +24,21 @@ export default function RootLayout({
       <body className="antialiased h-screen">
         <div>
           <SidebarProvider>
-            <Sidebar />
+            <AppSidebar />
 
             <div className="flex flex-col w-full">
-              <main className="flex flex-col flex-1">
-                <nav className="h-20 bg-header">
-                  <SidebarTrigger
-                    className="text-white h-14 w-14"
-                    iconSize={30}
-                  />
-                  <Header />
-                </nav>
-                <div className="flex-1 bg-white">{children}</div>
-              </main>
+              <nav className="h-20 bg-header">
+                <SidebarTrigger
+                  className="text-white h-14 w-14"
+                  iconSize={30}
+                />
+                <AppNavbar />
+              </nav>
+
+              <main className="flex flex-col flex-1">{children}</main>
 
               <footer className="bg-footer h-8">
-                <Footer />
+                <AppFooter />
               </footer>
             </div>
           </SidebarProvider>
