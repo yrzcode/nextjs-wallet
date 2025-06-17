@@ -5,10 +5,10 @@
 
 /* Custom theme variables */
 @theme {
-  --color-header: #1f2a3a;
+  --color-header: #263141;
   --color-footer: #3f5a7d;
-  --color-side: #243548;
-  --color-side-logo: #2C3D53;
+  --color-side: #365069;
+  --color-side-logo: #2C3D54;
   --color-sidebar-selected: #3f5a7d;
   --color-sidebar-profile: #3f5a7d;
   --color-tableHeader: #f9fafb;

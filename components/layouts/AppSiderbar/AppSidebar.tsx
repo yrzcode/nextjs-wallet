@@ -1,6 +1,7 @@
 import uiConfig from "@/config/ui.json";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
+import Image from "next/image";
 import * as FaIcons from "react-icons/fa";
 import { Button } from "../../ui/button";
 import {
@@ -20,10 +21,15 @@ const AppSidebar = () => {
   const items = uiConfig.sidebarItems;
   return (
     <Sidebar className="text-white">
-      <SidebarHeader className="bg-side-logo p-0 h-20 text-white">
-        Logo
+      <SidebarHeader className="grid place-items-center  bg-side-logo p-0 h-20 text-white">
+        <Image
+          src="/images/logo.png"
+          alt="Cloud Wallet Logo"
+          width={200}
+          height={90}
+        />
       </SidebarHeader>
-      <SidebarContent className="bg-side">
+      <SidebarContent className="bg-side px-8">
         <SidebarGroup>
           <SidebarGroupLabel className="text-white">Menu</SidebarGroupLabel>
           <SidebarGroupContent>
