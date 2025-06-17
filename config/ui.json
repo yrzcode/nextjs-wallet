@@ -13,7 +13,7 @@
     {
       "name": "Summary",
       "icon": "💰",
-      "path": "/deposits"
+      "path": "/summary"
     }
   ]
 }
