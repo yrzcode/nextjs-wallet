@@ -2,17 +2,17 @@
   "sidebarItems": [
     {
       "name": "Transactions",
-      "icon": "💰",
+      "icon": "FaExchangeAlt",
       "path": "/transactions"
     },
     {
       "name": "Balance",
-      "icon": "💰",
+      "icon": "FaWallet",
       "path": "/balance"
     },
     {
       "name": "Summary",
-      "icon": "💰",
+      "icon": "FaRegChartBar",
       "path": "/summary"
     }
   ]

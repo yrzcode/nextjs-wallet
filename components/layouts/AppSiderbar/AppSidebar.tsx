@@ -1,6 +1,7 @@
 import uiConfig from "@/config/ui.json";
 import UserProfile from "./UserProfile";
 import Link from "next/link";
+import * as FaIcons from "react-icons/fa";
 import { Button } from "../../ui/button";
 import {
   Sidebar,
@@ -27,16 +28,19 @@ const AppSidebar = () => {
           <SidebarGroupLabel className="text-white">Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.path}>
-                      <span>{item.icon}</span>
-                      <span>{item.name}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {items.map((item) => {
+                const Icon = FaIcons[item.icon as keyof typeof FaIcons];
+                return (
+                  <SidebarMenuItem key={item.name}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.path}>
+                        <Icon />
+                        <span>{item.name}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
