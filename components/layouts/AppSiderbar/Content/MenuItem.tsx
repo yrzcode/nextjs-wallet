@@ -1,7 +1,7 @@
 import * as FaIcons from "react-icons/fa";
 import Link from "next/link";
 import SubMenuItem from "./SubMenuItem";
-import type { MenuItem as MenuItemType } from "@/config/ui";
+import type { SidebarMenuItem as MenuItemType } from "@/config/ui";
 import {
   Collapsible,
   CollapsibleContent,
@@ -10,7 +10,7 @@ import {
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { ChevronDown } from "lucide-react";
 
-const MenuItem = ({ name, path, icon, subItems }: MenuItemType) => {
+const MenuItem = ({ name, path, icon, subMenuItems }: MenuItemType) => {
   const Icon = FaIcons[icon as keyof typeof FaIcons];
   return (
     <Collapsible
@@ -23,15 +23,15 @@ const MenuItem = ({ name, path, icon, subItems }: MenuItemType) => {
             <Link href={path}>
               <Icon />
               <span className="test-4xl">{name}</span>
-              {subItems && (
+              {subMenuItems && (
                 <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
               )}
             </Link>
           </SidebarMenuButton>
         </CollapsibleTrigger>
         <CollapsibleContent>
-          {subItems?.map((subItem) => (
-            <SubMenuItem key={subItem.name} {...subItem} />
+          {subMenuItems?.map((subMenuItem) => (
+            <SubMenuItem key={subMenuItem.name} {...subMenuItem} />
           ))}
         </CollapsibleContent>
       </SidebarMenuItem>

@@ -9,7 +9,7 @@ import uiConfig from "@/config/ui";
 import MenuItem from "./MenuItem";
 
 const Content = () => {
-  const sidebarItems = uiConfig.sidebarItems;
+  const menuItems = uiConfig.sidebarMenuItems;
   return (
     <SidebarContent className="bg-side px-2">
       <SidebarGroup>
@@ -18,7 +18,7 @@ const Content = () => {
         </SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu className="px-4">
-            {sidebarItems.map((item) => {
+            {menuItems.map((item) => {
               return <MenuItem key={item.name} {...item} />;
             })}
           </SidebarMenu>

@@ -27,7 +27,7 @@ export default function RootLayout({
             <AppSidebar />
 
             <div className="flex flex-col w-full">
-              <nav className="h-20 bg-header">
+              <nav className="h-20 bg-header flex items-center">
                 <SidebarTrigger
                   className="text-white h-14 w-14"
                   iconSize={30}

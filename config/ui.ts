@@ -1,13 +1,13 @@
 // UI configuration types
-export type MenuItemBase = {
+export type MenuItem = {
 	name: string;
 	path: string;
 };
 
-export type MenuItem = {
-	subItems?: MenuItemBase[];
+export type SidebarMenuItem = {
+	subMenuItems?: MenuItem[];
 	icon: string;
-} & MenuItemBase;
+} & MenuItem;
 
 type ProfileMenuItem = {
 	name: string;
@@ -15,18 +15,19 @@ type ProfileMenuItem = {
 };
 
 type UIConfig = {
-	sidebarItems: MenuItem[];
+	sidebarMenuItems: SidebarMenuItem[];
+	navbarMenuItems: MenuItem[];
 	profileMenuItems: ProfileMenuItem[];
 };
 
 // UI configuration data
 const uiConfig: UIConfig = {
-	sidebarItems: [
+	sidebarMenuItems: [
 		{
 			name: "Transactions",
 			icon: "FaExchangeAlt",
 			path: "/transactions",
-			subItems: [
+			subMenuItems: [
 				{
 					name: "last one month",
 					path: "/transactions",
@@ -84,6 +85,7 @@ const uiConfig: UIConfig = {
 			icon: "FaSignOutAlt",
 		},
 	],
+	navbarMenuItems: [],
 };
 
 export default uiConfig;
