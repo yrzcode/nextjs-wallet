@@ -17,7 +17,7 @@ const Content = () => {
           Menu
         </SidebarGroupLabel>
         <SidebarGroupContent>
-          <SidebarMenu className="px-4">
+          <SidebarMenu className="px-4 text-white">
             {menuItems.map((item) => {
               return <MenuItem key={item.name} {...item} />;
             })}
