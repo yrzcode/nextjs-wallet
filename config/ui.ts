@@ -1,12 +1,12 @@
 // UI configuration types
-type MenuItemBase = {
+export type MenuItemBase = {
 	name: string;
-	icon: string;
 	path: string;
 };
 
-type MenuItem = {
+export type MenuItem = {
 	subItems?: MenuItemBase[];
+	icon: string;
 } & MenuItemBase;
 
 type ProfileMenuItem = {
@@ -19,8 +19,6 @@ type UIConfig = {
 	profileMenuItems: ProfileMenuItem[];
 };
 
-const test = 2 + 3;
-
 // UI configuration data
 const uiConfig: UIConfig = {
 	sidebarItems: [
@@ -31,22 +29,26 @@ const uiConfig: UIConfig = {
 			subItems: [
 				{
 					name: "last one month",
-					icon: "FaExchangeAlt",
 					path: "/transactions",
 				},
 				{
-					name: "last 3 months",
-					icon: "FaExchangeAlt",
+					name: "last three months",
 					path: "/transactions",
 				},
 				{
-					name: "last 6 months",
-					icon: "FaExchangeAlt",
+					name: "last six months",
 					path: "/transactions",
 				},
 				{
-					name: "last 1 year",
-					icon: "FaExchangeAlt",
+					name: "last one year",
+					path: "/transactions",
+				},
+				{
+					name: "last five years",
+					path: "/transactions",
+				},
+				{
+					name: "last ten years",
 					path: "/transactions",
 				},
 			],
@@ -55,6 +57,16 @@ const uiConfig: UIConfig = {
 			name: "Balance",
 			icon: "FaWallet",
 			path: "/balance",
+			subItems: [
+				{
+					name: "Income",
+					path: "/balance",
+				},
+				{
+					name: "Expense",
+					path: "/balance",
+				},
+			],
 		},
 		{
 			name: "Summary",

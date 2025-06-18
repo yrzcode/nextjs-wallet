@@ -7,7 +7,7 @@ const Header = () => {
       <Image
         src="/images/logo.png"
         alt="Cloud Wallet Logo"
-        width={220}
+        width={240}
         height={90}
       />
     </SidebarHeader>
