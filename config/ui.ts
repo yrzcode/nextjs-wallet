@@ -58,7 +58,7 @@ const uiConfig: UIConfig = {
 			name: "Balance",
 			icon: "FaWallet",
 			path: "/balance",
-			subItems: [
+			subMenuItems: [
 				{
 					name: "Income",
 					path: "/balance",
@@ -85,7 +85,7 @@ const uiConfig: UIConfig = {
 			icon: "FaSignOutAlt",
 		},
 	],
-	navbarMenuItems: [],
+	navbarMenuItems: [{ name: "overview", path: "" }],
 };
 
 export default uiConfig;

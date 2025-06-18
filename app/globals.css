@@ -5,7 +5,8 @@
 
 /* Custom theme variables */
 @theme {
-  --color-header: #263141;
+  --color-navbar: #263141;
+  --color-navbar-selected: #41536e;
   --color-footer: #3f5a7d;
   --color-side: #365069;
   --color-side-logo: #2C3D54;
