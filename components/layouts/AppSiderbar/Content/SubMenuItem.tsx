@@ -10,7 +10,7 @@ const SubMenuItem = ({ name, path }: MenuItemBase) => {
   return (
     <SidebarMenuSub>
       <SidebarMenuSubItem>
-        <SidebarMenuButton asChild>
+        <SidebarMenuButton asChild size="default" className="text-lg">
           <Link href={path}>
             <span>{name}</span>
           </Link>

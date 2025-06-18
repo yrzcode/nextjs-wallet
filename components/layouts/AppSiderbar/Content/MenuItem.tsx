@@ -19,10 +19,10 @@ const MenuItem = ({ name, path, icon, subItems }: MenuItemType) => {
     >
       <SidebarMenuItem>
         <CollapsibleTrigger asChild key={name}>
-          <SidebarMenuButton asChild>
+          <SidebarMenuButton asChild size="lg" className="text-xl">
             <Link href={path}>
               <Icon />
-              <span>{name}</span>
+              <span className="test-4xl">{name}</span>
               {subItems && (
                 <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
               )}

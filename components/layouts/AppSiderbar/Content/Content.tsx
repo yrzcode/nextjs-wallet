@@ -13,7 +13,7 @@ const Content = () => {
   return (
     <SidebarContent className="bg-side px-2">
       <SidebarGroup>
-        <SidebarGroupLabel className="text-white text-xl">
+        <SidebarGroupLabel className="text-white text-2xl my-4">
           Menu
         </SidebarGroupLabel>
         <SidebarGroupContent>
