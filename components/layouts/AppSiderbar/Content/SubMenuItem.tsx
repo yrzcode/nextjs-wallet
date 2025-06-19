@@ -41,7 +41,7 @@ const SubMenuItem = ({ name, path }: MenuItem) => {
         <SidebarMenuButton
           asChild
           size="default"
-          className={isActiveMenu ? "bg-side-selected" : ""}
+          className={isActiveMenu ? "bg-side--sub-selected" : ""}
         >
           <Link href={path} className="text-sm">
             <span>{name}</span>

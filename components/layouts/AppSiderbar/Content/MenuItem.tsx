@@ -40,7 +40,7 @@ const MenuItem = ({ name, path, icon, subMenuItems }: SidebarMenuItemType) => {
             )}
           </SidebarMenuButton>
         </CollapsibleTrigger>
-        <CollapsibleContent>
+        <CollapsibleContent className="mt-1">
           {subMenuItems?.map((subMenuItem) => (
             <SubMenuItem key={subMenuItem.name} {...subMenuItem} />
           ))}
