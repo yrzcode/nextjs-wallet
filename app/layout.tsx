@@ -21,28 +21,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={roboto.className}>
-      <body className="antialiased h-screen">
-        <div>
-          <SidebarProvider>
-            <AppSidebar />
+      <body className="antialiased h-screen m-0 p-0 overflow-hidden">
+        <SidebarProvider>
+          <AppSidebar />
 
-            <div className="flex flex-col w-full">
-              <nav className="h-20 bg-navbar flex items-center">
-                <AppNavbar />
-                <SidebarTrigger
-                  className="text-white h-14 w-14 px-10"
-                  iconSize={30}
-                />
-              </nav>
+          <div className="flex flex-col w-full h-screen">
+            <nav className="h-20 bg-navbar flex items-center">
+              <AppNavbar />
+              <SidebarTrigger
+                className="text-white h-14 w-14 px-10"
+                iconSize={30}
+              />
+            </nav>
 
-              <main className="flex flex-col flex-1">{children}</main>
+            <main className="flex flex-col flex-1 overflow-y-auto">
+              {children}
+            </main>
 
-              <footer className="bg-footer h-8">
-                <AppFooter />
-              </footer>
-            </div>
-          </SidebarProvider>
-        </div>
+            <footer className="bg-footer h-8">
+              <AppFooter />
+            </footer>
+          </div>
+        </SidebarProvider>
       </body>
     </html>
   );
