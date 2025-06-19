@@ -46,9 +46,9 @@ export const columns: ColumnDef<Transaction>[] = [
     },
     cell: ({ row }) => {
       const amount = Number.parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formatted = new Intl.NumberFormat("ja-JP", {
         style: "currency",
-        currency: "USD",
+        currency: "JPY",
       }).format(amount);
 
       return <div className="font-medium">{formatted}</div>;
