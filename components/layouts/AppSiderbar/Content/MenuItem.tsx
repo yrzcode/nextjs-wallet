@@ -1,7 +1,9 @@
+"use client";
+
 import * as FaIcons from "react-icons/fa";
-import Link from "next/link";
 import SubMenuItem from "./SubMenuItem";
-import type { SidebarMenuItem as MenuItemType } from "@/config/ui";
+import Link from "next/link";
+import type { SidebarMenuItem as SidebarMenuItemType } from "@/config/ui";
 import {
   Collapsible,
   CollapsibleContent,
@@ -9,9 +11,13 @@ import {
 } from "@/components/ui/collapsible";
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { ChevronDown } from "lucide-react";
+import { usePathname } from "next/navigation";
 
-const MenuItem = ({ name, path, icon, subMenuItems }: MenuItemType) => {
+const MenuItem = ({ name, path, icon, subMenuItems }: SidebarMenuItemType) => {
   const Icon = FaIcons[icon as keyof typeof FaIcons];
+  const pathname = usePathname();
+  const isActive = pathname.includes(path);
+
   return (
     <Collapsible
       defaultOpen={name === "Transactions"}
@@ -19,14 +25,19 @@ const MenuItem = ({ name, path, icon, subMenuItems }: MenuItemType) => {
     >
       <SidebarMenuItem>
         <CollapsibleTrigger asChild key={name}>
-          <SidebarMenuButton asChild size="lg" className="text-xl">
-            <Link href={path}>
-              <Icon />
-              <span className="test-4xl">{name}</span>
-              {subMenuItems && (
+          <SidebarMenuButton asChild size="lg">
+            {(subMenuItems?.length && (
+              <div className={isActive ? "bg-side-selected" : ""}>
+                <Icon />
+                <span className="text-lg">{name}</span>
                 <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
-              )}
-            </Link>
+              </div>
+            )) || (
+              <Link href={path} className={isActive ? "bg-side-selected" : ""}>
+                <Icon />
+                <span className="text-lg">{name}</span>
+              </Link>
+            )}
           </SidebarMenuButton>
         </CollapsibleTrigger>
         <CollapsibleContent>

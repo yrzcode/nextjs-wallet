@@ -29,28 +29,32 @@ const uiConfig: UIConfig = {
 			path: "/transactions",
 			subMenuItems: [
 				{
-					name: "last one month",
+					name: "all",
 					path: "/transactions",
+				},
+				{
+					name: "last month",
+					path: "/transactions?month_range=1",
 				},
 				{
 					name: "last three months",
-					path: "/transactions",
+					path: "/transactions?month_range=3",
 				},
 				{
 					name: "last six months",
-					path: "/transactions",
+					path: "/transactions?month_range=6",
 				},
 				{
 					name: "last one year",
-					path: "/transactions",
+					path: "/transactions?year_range=1",
 				},
 				{
 					name: "last five years",
-					path: "/transactions",
+					path: "/transactions?year_range=5",
 				},
 				{
 					name: "last ten years",
-					path: "/transactions",
+					path: "/transactions?year_range=10",
 				},
 			],
 		},
@@ -60,12 +64,16 @@ const uiConfig: UIConfig = {
 			path: "/balance",
 			subMenuItems: [
 				{
-					name: "Income",
+					name: "all",
 					path: "/balance",
 				},
 				{
+					name: "Income",
+					path: "/balance?filter=income",
+				},
+				{
 					name: "Expense",
-					path: "/balance",
+					path: "/balance?filter=expense",
 				},
 			],
 		},
