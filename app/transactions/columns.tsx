@@ -30,6 +30,7 @@ export const columns: ColumnDef<Transaction>[] = [
         </Button>
       );
     },
+    size: 100,
   },
   {
     accessorKey: "amount",
@@ -53,6 +54,7 @@ export const columns: ColumnDef<Transaction>[] = [
 
       return <div className="font-medium">{formatted}</div>;
     },
+    size: 120,
   },
   {
     accessorKey: "description",
@@ -67,6 +69,9 @@ export const columns: ColumnDef<Transaction>[] = [
         </Button>
       );
     },
+    size: 9999,
+    minSize: 200,
+    enableResizing: false,
   },
   {
     accessorKey: "createdAt",
@@ -85,6 +90,7 @@ export const columns: ColumnDef<Transaction>[] = [
       const date = row.getValue("createdAt") as Date;
       return <div className="text-left font-medium">{formatDate(date)}</div>;
     },
+    size: 180,
   },
   {
     id: "actions",
@@ -110,5 +116,6 @@ export const columns: ColumnDef<Transaction>[] = [
         </DropdownMenu>
       );
     },
+    size: 80,
   },
 ];
