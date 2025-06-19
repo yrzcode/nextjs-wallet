@@ -1,10 +1,14 @@
 "use client";
-
+import TablePagination from "./TablePagination";
+import TableFilter from "./TableFilter";
+import TableActions from "./TableActions";
 import {
   type ColumnDef,
   type SortingState,
+  type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -18,7 +22,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
-import TablePagination from "./TablePagination";
 
 export function DataTable<TData, TValue>({
   columns,
@@ -28,6 +31,7 @@ export function DataTable<TData, TValue>({
   data: TData[];
 }) {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -36,6 +40,8 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     columnResizeMode: "onChange",
     initialState: {
       pagination: {
@@ -44,11 +50,17 @@ export function DataTable<TData, TValue>({
     },
     state: {
       sorting,
+      columnFilters,
     },
   });
 
   return (
-    <div>
+    <>
+      <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
+        <TableActions table={table} data={data} />
+        <TableFilter table={table} data={data} />
+      </div>
+
       <div className="rounded-md border">
         <Table style={{ tableLayout: "fixed", width: "100%" }}>
           <TableHeader>
@@ -119,7 +131,9 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      <TablePagination table={table} data={data} />
-    </div>
+      <div className="">
+        <TablePagination table={table} data={data} />
+      </div>
+    </>
   );
 }

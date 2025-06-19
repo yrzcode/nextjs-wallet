@@ -19,6 +19,8 @@
   --color-deposit: #10b981;
   --color-withdrawal: #ef4444;
   --color-border: #e5e7eb;
+  --color-button-accent: #88bde3;
+  --color-button-hover: #6f93bf;
 }
 
 @theme inline {
