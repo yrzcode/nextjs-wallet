@@ -1,5 +1,5 @@
 import { getTransactions } from "@/api/transactions";
-import { DataTable } from "@/components/utils/DataTable";
+import { DataTable } from "@/components/utils/DataTable/DataTable";
 import { columns } from "./columns";
 
 const TransactionsPage = async () => {
