@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { MenuItem } from "@/config/ui";
+import type { MenuItem } from "@/types/ui";
 import {
   SidebarMenuButton,
   SidebarMenuSub,

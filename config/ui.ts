@@ -1,26 +1,5 @@
-// UI configuration types
-export type MenuItem = {
-	name: string;
-	path: string;
-};
+import type { UIConfig } from "@/types/ui";
 
-export type SidebarMenuItem = {
-	subMenuItems?: MenuItem[];
-	icon: string;
-} & MenuItem;
-
-type ProfileMenuItem = {
-	name: string;
-	icon: string;
-};
-
-type UIConfig = {
-	sidebarMenuItems: SidebarMenuItem[];
-	navbarMenuItems: MenuItem[];
-	profileMenuItems: ProfileMenuItem[];
-};
-
-// UI configuration data
 const uiConfig: UIConfig = {
 	sidebarMenuItems: [
 		{

@@ -3,7 +3,7 @@
 import * as FaIcons from "react-icons/fa";
 import SubMenuItem from "./SubMenuItem";
 import Link from "next/link";
-import type { SidebarMenuItem as SidebarMenuItemType } from "@/config/ui";
+import type { SidebarMenuItem as SidebarMenuItemType } from "@/types/ui";
 import {
   Collapsible,
   CollapsibleContent,
