@@ -47,12 +47,22 @@ const TableColumns: ColumnDef<Transaction>[] = [
     },
     cell: ({ row }) => {
       const amount = Number.parseFloat(row.getValue("amount"));
+      const type = row.getValue("type") as string;
+
       const formatted = new Intl.NumberFormat("ja-JP", {
         style: "currency",
         currency: "JPY",
       }).format(amount);
 
-      return <div className="font-medium">{formatted}</div>;
+      const prefix = type === "Deposit" ? "+" : "-";
+      const colorClass = type === "Deposit" ? "text-green-600" : "text-red-600";
+
+      return (
+        <div className={`font-medium ${colorClass}`}>
+          {prefix}
+          {formatted}
+        </div>
+      );
     },
     size: 120,
   },

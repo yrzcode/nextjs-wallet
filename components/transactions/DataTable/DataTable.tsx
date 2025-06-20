@@ -23,6 +23,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
+import AmountTotal from "../AmountTotal";
+import type { Transaction } from "@/types/transaction";
 
 // Extend TanStack Table's FilterFns interface
 declare module "@tanstack/react-table" {
@@ -188,6 +190,15 @@ const DataTable = <TData, TValue>({
 
       <div className="">
         <TablePagination table={table} />
+      </div>
+
+      {/* Amount totals based on filtered data */}
+      <div className="mt-4">
+        <AmountTotal
+          transactions={table
+            .getFilteredRowModel()
+            .rows.map((row) => row.original as Transaction)}
+        />
       </div>
     </>
   );
