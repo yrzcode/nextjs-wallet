@@ -9,13 +9,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const TablePagination = <TData,>({
-  table,
-  data,
-}: {
-  table: Table<TData>;
-  data: TData[];
-}) => {
+const TablePagination = <TData,>({ table }: { table: Table<TData> }) => {
   const currentPage = table.getState().pagination.pageIndex + 1;
   const totalPages = table.getPageCount();
 
@@ -77,7 +71,8 @@ const TablePagination = <TData,>({
   return (
     <div className="flex items-center justify-between py-4">
       <div className="text-sm text-muted-foreground whitespace-nowrap">
-        Page {currentPage} of {totalPages} | Total {data.length} records
+        Page {currentPage} of {totalPages} | Total{" "}
+        {table.getFilteredRowModel().rows.length} records
       </div>
 
       <Pagination className="justify-end">

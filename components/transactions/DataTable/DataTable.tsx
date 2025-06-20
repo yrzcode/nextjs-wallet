@@ -187,7 +187,7 @@ export function DataTable<TData, TValue>({
       </div>
 
       <div className="">
-        <TablePagination table={table} data={data} />
+        <TablePagination table={table} />
       </div>
     </>
   );
