@@ -43,7 +43,7 @@ const uiConfig: UIConfig = {
 			path: "/balance",
 			subMenuItems: [
 				{
-					name: "all",
+					name: "total",
 					path: "/balance",
 				},
 				{
