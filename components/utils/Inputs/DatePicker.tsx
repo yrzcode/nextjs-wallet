@@ -21,6 +21,14 @@ const DatePicker = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  // Custom date formatter: 2025 / 6 / 7
+  const formatDate = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // getMonth() returns 0-11
+    const day = date.getDate();
+    return `${year} / ${month} / ${day}`;
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <Popover open={open} onOpenChange={setOpen}>
@@ -30,7 +38,7 @@ const DatePicker = ({
             id="date"
             className="w-36 justify-between font-normal text-sm"
           >
-            {date ? date.toLocaleDateString() : placeholder}
+            {date ? formatDate(date) : placeholder}
             <ChevronDownIcon className="h-4 w-4" />
           </Button>
         </PopoverTrigger>
