@@ -21,6 +21,8 @@ const TableFilter = <TData,>({ table }: { table: Table<TData> }) => {
     if (!start && !end) {
       // Clear filter if no date range is set
       createdAtColumn.setFilterValue(undefined);
+      // Also ensure we reset all column filters if this was the only filter
+      table.resetColumnFilters();
       return;
     }
 
@@ -60,14 +62,16 @@ const TableFilter = <TData,>({ table }: { table: Table<TData> }) => {
       newStartDate = dateYearAgo;
       newEndDate = new Date(); // Set end date to current date
     }
+    // If both monthRange and yearRange are null, newStartDate and newEndDate remain undefined
+    // which will clear the filter when passed to handleDateFilter
 
     // Update state
     setStartDate(newStartDate);
     setEndDate(newEndDate);
 
-    // Apply the filter immediately
+    // Apply the filter immediately - this will clear filter if both dates are undefined
     handleDateFilter(newStartDate, newEndDate);
-  }, [monthRange, yearRange]);
+  }, [monthRange, yearRange, table]);
 
   const handleStartDateChange = (date?: Date) => {
     setStartDate(date);
@@ -78,6 +82,14 @@ const TableFilter = <TData,>({ table }: { table: Table<TData> }) => {
     setEndDate(date);
     handleDateFilter(startDate, date);
   };
+
+  // Add effect to handle when both dates are cleared (when Clear Filter is clicked)
+  useEffect(() => {
+    if (!startDate && !endDate && !monthRange && !yearRange) {
+      // Ensure filter is completely cleared when all conditions are false
+      handleDateFilter(undefined, undefined);
+    }
+  }, [startDate, endDate, monthRange, yearRange]);
 
   return (
     <div className="flex items-center gap-2">
