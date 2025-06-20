@@ -1,4 +1,4 @@
-import RangeDatePicker from "../Inputs/RangeDatePicker";
+import RangeDatePicker from "../../utils/Inputs/RangeDatePicker";
 import type { Table } from "@tanstack/react-table";
 import { useState } from "react";
 

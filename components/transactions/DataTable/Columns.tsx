@@ -16,7 +16,7 @@ import {
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { ArrowUpDown } from "lucide-react";
 
-export const columns: ColumnDef<Transaction>[] = [
+const TableColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "type",
     header: ({ column }) => {
@@ -120,3 +120,5 @@ export const columns: ColumnDef<Transaction>[] = [
     size: 80,
   },
 ];
+
+export default TableColumns;
