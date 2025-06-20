@@ -12,7 +12,7 @@ const uiConfig: UIConfig = {
 					path: "/transactions",
 				},
 				{
-					name: "last month",
+					name: "last one month",
 					path: "/transactions?month_range=1",
 				},
 				{
