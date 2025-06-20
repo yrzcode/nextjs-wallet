@@ -90,6 +90,7 @@ export const columns: ColumnDef<Transaction>[] = [
       const date = row.getValue("createdAt") as Date;
       return <div className="text-left font-medium">{formatDate(date)}</div>;
     },
+    filterFn: "dateRange",
     size: 180,
   },
   {

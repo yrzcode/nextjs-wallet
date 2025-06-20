@@ -6,6 +6,7 @@ import {
   type ColumnDef,
   type SortingState,
   type ColumnFiltersState,
+  type Row,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -22,6 +23,46 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
+
+// Extend TanStack Table's FilterFns interface
+declare module "@tanstack/react-table" {
+  interface FilterFns {
+    dateRange: typeof dateRangeFilter;
+  }
+}
+
+// Custom date range filter function
+const dateRangeFilter = <TData,>(
+  row: Row<TData>,
+  columnId: string,
+  value: [Date | null, Date | null]
+) => {
+  const date = row.getValue(columnId) as Date;
+  if (!date) return false;
+
+  const [start, end] = value;
+  const rowDate = new Date(date);
+
+  // If no range is set, show all rows
+  if (!start && !end) return true;
+
+  // If only start date is set
+  if (start && !end) {
+    return rowDate >= start;
+  }
+
+  // If only end date is set
+  if (!start && end) {
+    return rowDate <= end;
+  }
+
+  // If both start and end dates are set
+  if (start && end) {
+    return rowDate >= start && rowDate <= end;
+  }
+
+  return true;
+};
 
 export function DataTable<TData, TValue>({
   columns,
@@ -42,6 +83,9 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    filterFns: {
+      dateRange: dateRangeFilter,
+    },
     columnResizeMode: "onChange",
     initialState: {
       pagination: {
@@ -56,9 +100,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="grid grid-cols-[auto_1fr] gap-4 items-center">
+      <div className="flex justify-between items-center mb-4">
         <TableActions table={table} data={data} />
-        <TableFilter table={table} data={data} />
+        <TableFilter table={table} />
       </div>
 
       <div className="rounded-md border">
