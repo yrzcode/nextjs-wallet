@@ -1,6 +1,7 @@
 import Columns from "../../components/transactions/DataTable/Columns";
+import DataTable from "@/components/transactions/DataTable/DataTable";
+import AmountTotal from "@/components/transactions/AmountTotal";
 import { getTransactions } from "@/api/transactions";
-import { DataTable } from "@/components/transactions/DataTable/DataTable";
 
 const TransactionsPage = async () => {
   const transactions = await getTransactions();
@@ -8,6 +9,7 @@ const TransactionsPage = async () => {
   return (
     <div className="p-4">
       <DataTable columns={Columns} data={transactions} />
+      <AmountTotal />
     </div>
   );
 };

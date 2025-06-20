@@ -64,13 +64,13 @@ const dateRangeFilter = <TData,>(
   return true;
 };
 
-export function DataTable<TData, TValue>({
+const DataTable = <TData, TValue>({
   columns,
   data,
 }: {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-}) {
+}) => {
   const [sorting, setSorting] = useState<SortingState>([
     {
       id: "createdAt",
@@ -191,4 +191,6 @@ export function DataTable<TData, TValue>({
       </div>
     </>
   );
-}
+};
+
+export default DataTable;
