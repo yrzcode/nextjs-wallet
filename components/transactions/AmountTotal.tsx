@@ -1,5 +1,6 @@
 import { Card, CardContent } from "../ui/card";
 import type { Transaction } from "@/types/transaction";
+import { FaArrowUp, FaArrowDown, FaWallet } from "react-icons/fa";
 
 interface AmountTotalProps {
   transactions: Transaction[];
@@ -30,17 +31,26 @@ const AmountTotal = ({ transactions }: AmountTotalProps) => {
   return (
     <Card className="flex flex-row gap-4 p-1 justify-evenly font-bold rounded-sm">
       <CardContent>
-        <p className="text-green-600">
+        <p className="text-green-600 flex items-center gap-2">
+          <FaArrowUp className="text-green-600" />
           Total Income: +{formatAmount(totalIncome)}
         </p>
       </CardContent>
       <CardContent>
-        <p className="text-red-600">
+        <p className="text-red-600 flex items-center gap-2">
+          <FaArrowDown className="text-red-600" />
           Total Expenditure: -{formatAmount(totalExpenditure)}
         </p>
       </CardContent>
       <CardContent>
-        <p className={`${netBalance >= 0 ? "text-green-600" : "text-red-600"}`}>
+        <p
+          className={`${
+            netBalance >= 0 ? "text-green-600" : "text-red-600"
+          } flex items-center gap-2`}
+        >
+          <FaWallet
+            className={`${netBalance >= 0 ? "text-green-600" : "text-red-600"}`}
+          />
           Net Balance: {netBalance >= 0 ? "+" : ""}
           {formatAmount(netBalance)}
         </p>
