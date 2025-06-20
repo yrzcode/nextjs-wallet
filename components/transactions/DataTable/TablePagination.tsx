@@ -69,7 +69,7 @@ const TablePagination = <TData,>({ table }: { table: Table<TData> }) => {
   const pageNumbers = getPageNumbers();
 
   return (
-    <div className="flex items-center justify-between py-4">
+    <div className="flex items-center justify-between mt-4">
       <div className="text-sm text-muted-foreground whitespace-nowrap">
         Page {currentPage} of {totalPages} | Total{" "}
         {table.getFilteredRowModel().rows.length} records
