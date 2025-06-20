@@ -1,8 +1,15 @@
+"use client";
+
 import RangeDatePicker from "../../utils/Inputs/RangeDatePicker";
 import type { Table } from "@tanstack/react-table";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const TableFilter = <TData,>({ table }: { table: Table<TData> }) => {
+  const searchParams = useSearchParams();
+  const monthRange = searchParams.get("month_range");
+  const yearRange = searchParams.get("year_range");
+
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
 
@@ -33,6 +40,34 @@ const TableFilter = <TData,>({ table }: { table: Table<TData> }) => {
 
     createdAtColumn.setFilterValue([startDateObj, endDateObj]);
   };
+
+  useEffect(() => {
+    let newStartDate: Date | undefined = undefined;
+    let newEndDate: Date | undefined = undefined;
+
+    if (monthRange) {
+      const dateMonthAgo = new Date();
+      dateMonthAgo.setMonth(
+        dateMonthAgo.getMonth() - Number.parseInt(monthRange)
+      );
+      newStartDate = dateMonthAgo;
+      newEndDate = new Date(); // Set end date to current date
+    } else if (yearRange) {
+      const dateYearAgo = new Date();
+      dateYearAgo.setFullYear(
+        dateYearAgo.getFullYear() - Number.parseInt(yearRange)
+      );
+      newStartDate = dateYearAgo;
+      newEndDate = new Date(); // Set end date to current date
+    }
+
+    // Update state
+    setStartDate(newStartDate);
+    setEndDate(newEndDate);
+
+    // Apply the filter immediately
+    handleDateFilter(newStartDate, newEndDate);
+  }, [monthRange, yearRange]);
 
   const handleStartDateChange = (date?: Date) => {
     setStartDate(date);
