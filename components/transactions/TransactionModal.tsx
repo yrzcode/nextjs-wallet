@@ -32,6 +32,11 @@ const TransactionModal = ({ transactionId }: { transactionId?: string }) => {
     ? "Edit Transaction - Modify existing transaction details including type, amount, and description"
     : "Add a new transaction record. Please fill in the transaction details including transaction type and amount.";
 
+  const handleFormAction = async (formData: FormData) => {
+    await createNewTransaction(formData);
+    closeTransactionModal();
+  };
+
   return (
     <Dialog
       open={isTransactionModalOpen}
@@ -42,7 +47,7 @@ const TransactionModal = ({ transactionId }: { transactionId?: string }) => {
       }}
     >
       <DialogContent className="sm:max-w-[425px]">
-        <form action={createNewTransaction} onSubmit={closeTransactionModal}>
+        <form action={handleFormAction}>
           <DialogHeader>
             <DialogTitle>Add Transaction</DialogTitle>
             <DialogDescription>{dialogDescription}</DialogDescription>

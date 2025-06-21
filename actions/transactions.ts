@@ -1,20 +1,19 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { Transaction } from "@prisma/client";
+import type { Transaction } from "@prisma/client";
 import { testUserId } from "./user";
+import { revalidatePath } from "next/cache";
 
 export const getAllTransactions = async (): Promise<Transaction[]> => {
 	const transactions = await prisma.transaction.findMany();
 	return transactions;
 };
 
-export const createNewTransaction = async (
-	formData: FormData,
-) => {
+export const createNewTransaction = async (formData: FormData) => {
 	const userId = testUserId;
 	const type = formData.get("type") as "Deposit" | "Withdrawal";
-	const amount = parseFloat(formData.get("amount") as string);
+	const amount = Number.parseFloat(formData.get("amount") as string);
 	const description = formData.get("description") as string;
 
 	console.log({ type, amount, description });
@@ -27,4 +26,7 @@ export const createNewTransaction = async (
 			userId,
 		},
 	});
+
+	// Revalidate the transactions page to refresh the data
+	revalidatePath("/transactions");
 };
