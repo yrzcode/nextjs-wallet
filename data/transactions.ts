@@ -1,5 +1,47 @@
 import { Transaction, TransactionType } from "@prisma/client";
 
+// Realistic transaction descriptions
+const depositDescriptions = [
+	"Salary Payment",
+	"Freelance Project Payment",
+	"Investment Return",
+	"Dividend Payment",
+	"Refund from Online Store",
+	"Insurance Claim",
+	"Gift Money",
+	"Bonus Payment",
+	"Bank Interest",
+	"Cashback Reward",
+	"Tax Refund",
+	"Rental Income",
+	"Part-time Job Payment",
+	"Commission Payment",
+	"Prize Money"
+];
+
+const withdrawalDescriptions = [
+	"Grocery Shopping at Supermarket",
+	"Restaurant Dinner",
+	"ATM Withdrawal",
+	"Online Shopping",
+	"Gas Station Payment",
+	"Coffee Shop Purchase",
+	"Utility Bill Payment",
+	"Rent Payment",
+	"Insurance Premium",
+	"Movie Tickets",
+	"Pharmacy Purchase",
+	"Public Transportation",
+	"Mobile Phone Bill",
+	"Internet Service Fee",
+	"Gym Membership",
+	"Book Store Purchase",
+	"Fast Food Order",
+	"Taxi Fare",
+	"Parking Fee",
+	"Subscription Service"
+];
+
 const generateTransactionWithDateRange = (index: number, daysAgoMin: number, daysAgoMax: number, userId: string = "67bc0cc1-9a51-48fb-8838-5be7586966e"): Omit<Transaction, 'id' | 'updatedAt'> => {
 	const daysAgo = Math.floor(Math.random() * (daysAgoMax - daysAgoMin + 1)) + daysAgoMin;
 	const hoursAgo = Math.floor(Math.random() * 24);
@@ -10,10 +52,25 @@ const generateTransactionWithDateRange = (index: number, daysAgoMin: number, day
 	createdAt.setHours(hoursAgo);
 	createdAt.setMinutes(minutesAgo);
 	
+	const isDeposit = index % 2 === 0;
+	const transactionType = isDeposit ? "Deposit" : "Withdrawal";
+	const descriptions = isDeposit ? depositDescriptions : withdrawalDescriptions;
+	const randomDescription = descriptions[Math.floor(Math.random() * descriptions.length)];
+	
+	// Generate realistic amounts based on transaction type
+	let amount: number;
+	if (isDeposit) {
+		// Deposits tend to be larger amounts
+		amount = Math.floor(Math.random() * 2000) + 100; // 100-2100
+	} else {
+		// Withdrawals have more varied amounts
+		amount = Math.floor(Math.random() * 500) + 10; // 10-510
+	}
+	
 	return {
-		type: (index % 2 === 0 ? "Deposit" : "Withdrawal") as TransactionType,
-		amount: Math.floor(Math.random() * 1000),
-		description: `Transaction ${index + 1}`,
+		type: transactionType as TransactionType,
+		amount,
+		description: randomDescription,
 		userId,
 		createdAt,
 	};
