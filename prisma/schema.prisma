@@ -15,6 +15,7 @@ enum TransactionType {
 model User {
   id           String        @id @default(uuid())
   email        String        @unique
+  profile      String?       @default("/images/profile.jpeg")
   name         String
   password     String
   Transactions Transaction[]

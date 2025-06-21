@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { HiChevronUpDown } from "react-icons/hi2";
+import { HiChevronUpDown, HiUser } from "react-icons/hi2";
 import {
   Tooltip,
   TooltipContent,
@@ -9,7 +9,15 @@ import {
 } from "@/components/ui/tooltip";
 import { useRef, useEffect, useState } from "react";
 
-const UserProfile = ({ name, email }: { name: string; email: string }) => {
+const UserProfile = ({
+  name,
+  email,
+  profile,
+}: {
+  name: string;
+  email: string;
+  profile: string;
+}) => {
   const nameRef = useRef<HTMLParagraphElement>(null);
   const emailRef = useRef<HTMLParagraphElement>(null);
   const [isNameTruncated, setIsNameTruncated] = useState(false);
@@ -49,8 +57,10 @@ const UserProfile = ({ name, email }: { name: string; email: string }) => {
   return (
     <div className="flex items-center gap-2">
       <Avatar className="rounded-md">
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarImage src={profile} alt="profile" />
+        <AvatarFallback>
+          <HiUser color="green" />
+        </AvatarFallback>
       </Avatar>
       <div className="text-left text-xs">
         {isNameTruncated ? (

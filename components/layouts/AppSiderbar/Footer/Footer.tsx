@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 
 const Footer = ({ user }: { user: User }) => {
   const profileMenuItems = uiConfig.profileMenuItems;
-  const { name, email } = user;
+  const { name, email, profile } = user;
   return (
     <SidebarFooter className="bg-side px-4 py-2">
       <DropdownMenu>
@@ -23,7 +23,7 @@ const Footer = ({ user }: { user: User }) => {
             size="xl"
             className="text-white border-2 border-sidebar-profile bg-side hover:bg-sidebar-profile"
           >
-            <UserProfile name={name} email={email} />
+            <UserProfile name={name} email={email} profile={profile} />
           </Button>
         </DropdownMenuTrigger>
 
