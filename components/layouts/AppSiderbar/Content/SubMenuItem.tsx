@@ -9,7 +9,11 @@ import {
 } from "@/components/ui/sidebar";
 import { useSearchParams, usePathname } from "next/navigation";
 
-const SubMenuItem = ({ name, path }: MenuItem) => {
+const SubMenuItem = ({
+  name,
+  path,
+  onClick,
+}: MenuItem & { onClick?: () => void }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
@@ -35,6 +39,7 @@ const SubMenuItem = ({ name, path }: MenuItem) => {
   };
 
   const isActiveMenu = checkIsActiveMenu(pathname.split("/")[1]);
+
   return (
     <SidebarMenuSub>
       <SidebarMenuSubItem>
@@ -42,6 +47,7 @@ const SubMenuItem = ({ name, path }: MenuItem) => {
           asChild
           size="default"
           className={isActiveMenu ? "bg-side--sub-selected" : ""}
+          onClick={onClick}
         >
           <Link href={path} className="text-sm">
             <span>{name}</span>

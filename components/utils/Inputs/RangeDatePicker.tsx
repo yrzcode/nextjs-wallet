@@ -21,8 +21,8 @@ const RangeDatePicker = ({
 
   const handleClear = () => {
     // Clear date state
-    onStartDateChange(undefined);
-    onEndDateChange(undefined);
+    onStartDateChange();
+    onEndDateChange();
 
     // Clear URL search params
     router.push(pathname);

@@ -4,7 +4,7 @@ export type MenuItem = {
 };
 
 export type SidebarMenuItem = {
-	subMenuItems?: MenuItem[];
+	subMenuItems?: (MenuItem & { startDate?: Date })[];
 	icon: string;
 } & MenuItem;
 

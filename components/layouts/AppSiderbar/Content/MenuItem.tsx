@@ -1,8 +1,10 @@
 "use client";
 
 import * as FaIcons from "react-icons/fa";
-import SubMenuItem from "./SubMenuItem";
 import Link from "next/link";
+import SubMenuItem from "./SubMenuItem";
+import useFilterStore from "@/hooks/stores/useFilterStore";
+import type { MenuItem as MenuItemType } from "@/types/ui";
 import type { SidebarMenuItem as SidebarMenuItemType } from "@/types/ui";
 import {
   Collapsible,
@@ -17,6 +19,19 @@ const MenuItem = ({ name, path, icon, subMenuItems }: SidebarMenuItemType) => {
   const Icon = FaIcons[icon as keyof typeof FaIcons];
   const pathname = usePathname();
   const isActive = pathname.includes(path);
+  const { setFilter } = useFilterStore();
+
+  const handleSubMenuItemClick = (
+    subMenuItem: MenuItemType & { startDate?: Date }
+  ) => {
+    if (!subMenuItem.path?.includes("transactions")) return;
+    if (subMenuItem.startDate) {
+      setFilter({ startDate: subMenuItem.startDate });
+      setFilter({ endDate: new Date() });
+      return;
+    }
+    setFilter({ startDate: undefined, endDate: undefined });
+  };
 
   return (
     <Collapsible
@@ -42,7 +57,11 @@ const MenuItem = ({ name, path, icon, subMenuItems }: SidebarMenuItemType) => {
         </CollapsibleTrigger>
         <CollapsibleContent className="mt-1">
           {subMenuItems?.map((subMenuItem) => (
-            <SubMenuItem key={subMenuItem.name} {...subMenuItem} />
+            <SubMenuItem
+              key={subMenuItem.name}
+              {...subMenuItem}
+              onClick={() => handleSubMenuItemClick(subMenuItem)}
+            />
           ))}
         </CollapsibleContent>
       </SidebarMenuItem>
