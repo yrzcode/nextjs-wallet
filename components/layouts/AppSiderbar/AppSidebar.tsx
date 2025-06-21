@@ -2,10 +2,10 @@ import Header from "./Header";
 import Footer from "./Footer/Footer";
 import Content from "./Content/Content";
 import { Sidebar } from "@/components/ui/sidebar";
-import { getUserById } from "@/api/user";
+import { getUserById, testUserId } from "@/actions/user";
 
 const AppSidebar = async () => {
-  const user = await getUserById("67bc0cc1-9a51-48fb-8838-5be7586966e5");
+  const user = await getUserById(testUserId);
 
   return (
     <Sidebar className="text-white">
