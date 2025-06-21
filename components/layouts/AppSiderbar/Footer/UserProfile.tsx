@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HiChevronUpDown } from "react-icons/hi2";
 
-const UserProfile = () => {
+const UserProfile = ({ name, email }: { name: string; email: string }) => {
   return (
     <div className="flex items-center gap-2">
       <Avatar className="rounded-md">
@@ -9,8 +9,8 @@ const UserProfile = () => {
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
       <div className="text-left text-xs">
-        <p>John Doe</p>
-        <p>john.doe@example.com</p>
+        <p className="w-36 truncate">{name}</p>
+        <p className="w-36 truncate">{email}</p>
       </div>
       <HiChevronUpDown />
     </div>

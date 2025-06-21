@@ -1,13 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { FaPlus, FaDownload } from "react-icons/fa";
 
-const TableActions = <TData,>({
-  table,
-  data,
-}: {
-  table: Table<TData>;
-  data: TData[];
-}) => {
+const TableActions = () => {
   return (
     <div className="flex gap-2">
       <Button

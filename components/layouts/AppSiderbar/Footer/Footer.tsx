@@ -1,6 +1,7 @@
 import * as FaIcons from "react-icons/fa";
 import UserProfile from "./UserProfile";
 import uiConfig from "@/config/ui";
+import type { User } from "@prisma/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +11,9 @@ import {
 import { SidebarFooter } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 
-const Footer = () => {
+const Footer = ({ user }: { user: User }) => {
   const profileMenuItems = uiConfig.profileMenuItems;
+  const { name, email } = user;
   return (
     <SidebarFooter className="bg-side px-4 py-2">
       <DropdownMenu>
@@ -21,7 +23,7 @@ const Footer = () => {
             size="xl"
             className="text-white border-2 border-sidebar-profile bg-side hover:bg-sidebar-profile"
           >
-            <UserProfile />
+            <UserProfile name={name} email={email} />
           </Button>
         </DropdownMenuTrigger>
 
