@@ -15,7 +15,15 @@ export const createNewTransaction = async (formData: FormData) => {
 	const type = formData.get("type") as "Deposit" | "Withdrawal";
 	const amount = Number.parseFloat(formData.get("amount") as string);
 	const description = formData.get("description") as string;
-	const date = formData.get("date") as string;
+	const dateString = formData.get("date") as string;
+
+	// Parse the date, use current date if no date is provided
+	let date: Date;
+	if (dateString && dateString !== "") {
+		date = new Date(dateString);
+	} else {
+		date = new Date();
+	}
 
 	await prisma.transaction.create({
 		data: {
@@ -24,6 +32,17 @@ export const createNewTransaction = async (formData: FormData) => {
 			description,
 			userId,
 			date,
+		},
+	});
+
+	// Revalidate the transactions page to refresh the data
+	revalidatePath("/transactions");
+};
+
+export const deleteTransaction = async (transactionId: string) => {
+	await prisma.transaction.delete({
+		where: {
+			id: transactionId,
 		},
 	});
 

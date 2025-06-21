@@ -1,7 +1,7 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import type { Transaction } from "@/types/transaction";
+import type { Transaction } from "@prisma/client";
 import { formatDate } from "@/lib/utils";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { ArrowUpDown } from "lucide-react";
+import { deleteTransaction } from "@/actions/transactions";
 
 const TableColumns: ColumnDef<Transaction>[] = [
   {
@@ -105,7 +106,11 @@ const TableColumns: ColumnDef<Transaction>[] = [
   },
   {
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const transactionId = row.original.id;
+      const handleDeleteTransaction = () => {
+        deleteTransaction(transactionId);
+      };
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -120,7 +125,7 @@ const TableColumns: ColumnDef<Transaction>[] = [
             <DropdownMenuItem>
               <FaEdit /> Edit
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleDeleteTransaction}>
               <FaTrash /> Delete
             </DropdownMenuItem>
           </DropdownMenuContent>
