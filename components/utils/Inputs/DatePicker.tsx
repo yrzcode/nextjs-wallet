@@ -14,12 +14,18 @@ const DatePicker = ({
   date,
   onDateChange,
   placeholder = "Select date",
+  name,
 }: {
   date?: Date;
-  onDateChange: (date?: Date) => void;
+  onDateChange?: (date?: Date) => void;
   placeholder?: string;
+  name?: string;
 }) => {
   const [open, setOpen] = useState(false);
+  const [internalDate, setInternalDate] = useState<Date | undefined>(date);
+
+  // Use internal state if no date prop is provided (uncontrolled mode)
+  const currentDate = date !== undefined ? date : internalDate;
 
   // Custom date formatter: 2025 / 6 / 7
   const formatDate = (date: Date): string => {
@@ -29,28 +35,44 @@ const DatePicker = ({
     return `${year} / ${month} / ${day}`;
   };
 
+  // Handle date selection
+  const handleDateSelect = (selectedDate?: Date) => {
+    if (onDateChange) {
+      onDateChange(selectedDate);
+    } else {
+      setInternalDate(selectedDate);
+    }
+    setOpen(false);
+  };
+
   return (
     <div className="flex flex-col gap-3">
+      {/* Hidden input for form submission */}
+      {name && (
+        <input
+          type="hidden"
+          name={name}
+          value={currentDate ? currentDate.toISOString() : ""}
+        />
+      )}
+
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             id="date"
-            className="w-36 justify-between font-normal text-sm"
+            className="w-full justify-between font-normal text-sm"
           >
-            {date ? formatDate(date) : placeholder}
+            {currentDate ? formatDate(currentDate) : placeholder}
             <ChevronDownIcon className="h-4 w-4" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">
           <Calendar
             mode="single"
-            selected={date}
+            selected={currentDate}
             captionLayout="dropdown"
-            onSelect={(date) => {
-              onDateChange(date);
-              setOpen(false);
-            }}
+            onSelect={handleDateSelect}
           />
         </PopoverContent>
       </Popover>

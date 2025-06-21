@@ -15,8 +15,7 @@ export const createNewTransaction = async (formData: FormData) => {
 	const type = formData.get("type") as "Deposit" | "Withdrawal";
 	const amount = Number.parseFloat(formData.get("amount") as string);
 	const description = formData.get("description") as string;
-
-	console.log({ type, amount, description });
+	const date = formData.get("date") as string;
 
 	await prisma.transaction.create({
 		data: {
@@ -24,6 +23,7 @@ export const createNewTransaction = async (formData: FormData) => {
 			amount,
 			description,
 			userId,
+			date,
 		},
 	});
 

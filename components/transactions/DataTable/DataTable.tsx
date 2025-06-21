@@ -75,7 +75,7 @@ const DataTable = <TData, TValue>({
 }) => {
   const [sorting, setSorting] = useState<SortingState>([
     {
-      id: "createdAt",
+      id: "date",
       desc: true,
     },
   ]);

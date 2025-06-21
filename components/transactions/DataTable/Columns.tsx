@@ -84,7 +84,7 @@ const TableColumns: ColumnDef<Transaction>[] = [
     enableResizing: false,
   },
   {
-    accessorKey: "createdAt",
+    accessorKey: "date",
     header: ({ column }) => {
       return (
         <Button
@@ -97,7 +97,7 @@ const TableColumns: ColumnDef<Transaction>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = row.getValue("createdAt") as Date;
+      const date = row.getValue("date") as Date;
       return <div className="text-left font-medium">{formatDate(date)}</div>;
     },
     filterFn: "dateRange",

@@ -14,7 +14,7 @@ const TableFilter = <TData,>({ table }: { table: Table<TData> }) => {
 
   // Handle date range filtering
   const handleDateFilter = (start: Date | undefined, end: Date | undefined) => {
-    const createdAtColumn = table.getColumn("createdAt");
+    const createdAtColumn = table.getColumn("date");
     if (!createdAtColumn) return;
     if (!start && !end) {
       // Clear filter if no date range is set

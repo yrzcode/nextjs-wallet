@@ -1,6 +1,7 @@
 "use client";
 
 import useUiStore from "@/hooks/stores/userUiStore";
+import DatePicker from "../utils/Inputs/DatePicker";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -67,6 +68,11 @@ const TransactionModal = ({ transactionId }: { transactionId?: string }) => {
                   </SelectGroup>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="grid gap-3">
+              <Label htmlFor="date">Date</Label>
+              <DatePicker name="date" />
             </div>
 
             <div className="grid gap-3">
