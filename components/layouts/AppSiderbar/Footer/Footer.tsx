@@ -23,7 +23,7 @@ const Footer = ({ user }: { user: User }) => {
             size="xl"
             className="text-white border-2 border-sidebar-profile bg-side hover:bg-sidebar-profile"
           >
-            <UserProfile name={name} email={email} profile={profile} />
+            <UserProfile name={name} email={email} profile={profile || ""} />
           </Button>
         </DropdownMenuTrigger>
 
@@ -34,8 +34,8 @@ const Footer = ({ user }: { user: User }) => {
           {profileMenuItems.map((item) => {
             const Icon = FaIcons[item.icon as keyof typeof FaIcons];
             return (
-              <DropdownMenuItem key={item.name}>
-                <Icon className="text-white" />
+              <DropdownMenuItem key={item.name} className="group">
+                <Icon className="text-white group-hover:text-green-700" />
                 <span>{item.name}</span>
               </DropdownMenuItem>
             );
