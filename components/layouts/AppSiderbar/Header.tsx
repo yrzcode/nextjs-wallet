@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <SidebarHeader className="grid place-items-center  bg-side-logo p-0 h-20 text-white">
       <Image
-        src="/images/logo.png"
+        src="/images/logo-color.png"
         alt="Cloud Wallet Logo"
         width={230}
         height={100}
