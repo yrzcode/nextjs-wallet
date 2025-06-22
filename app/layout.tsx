@@ -38,7 +38,7 @@ export default function RootLayout({
               {children}
             </main>
 
-            <footer className="bg-footer h-8 rounded-t-lg">
+            <footer className="bg-footer h-8 rounded-t-lg flex items-center justify-center">
               <AppFooter />
             </footer>
           </div>
