@@ -42,8 +42,8 @@ const TransactionModal = () => {
   const dialogTitle = transaction ? "Edit Transaction" : "Add Transaction";
 
   const dialogDescription = transaction
-    ? "Edit Transaction - Modify existing transaction details including type, amount, and description"
-    : "Add a new transaction record. Please fill in the transaction details including transaction type and amount.";
+    ? "Edit Transaction - Modify existing transaction details including type, date, amount, and description"
+    : "Add a new transaction record. Please fill in the transaction details including transaction type, date, amount, and description.";
 
   const dialogButton = transaction ? "Save Changes" : "Add New Transaction";
 
