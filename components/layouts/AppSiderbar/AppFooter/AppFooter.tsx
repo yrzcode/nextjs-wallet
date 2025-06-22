@@ -2,6 +2,7 @@
 
 import TechStackCard from "./TechStack";
 import { useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const AppFooter = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -32,7 +33,7 @@ const AppFooter = () => {
       aria-label="Expand or collapse footer"
     >
       {/* Copyright text */}
-      <p
+      <div
         className="w-full absolute left-0 right-0 z-10"
         style={{
           top: "50%",
@@ -40,8 +41,35 @@ const AppFooter = () => {
           transition: "transform 300ms ease-in-out",
         }}
       >
-        © 2025 Money Forward mfbc-cto-frontend-tech-assignment.
-      </p>
+        <p>© 2025 Money Forward mfbc-cto-frontend-tech-assignment.</p>
+        <p className="w-44 flex items-center gap-2 underline absolute right-0 top-0">
+          <span
+            className="transition-all duration-300 ease-in-out"
+            style={{
+              opacity: isExpanded ? 0 : 1,
+              transform: isExpanded ? "translateY(-10px)" : "translateY(0)",
+              position: isExpanded ? "absolute" : "static",
+            }}
+          >
+            Show Tech Stack
+          </span>
+          <span
+            className="transition-all duration-300 ease-in-out"
+            style={{
+              opacity: isExpanded ? 1 : 0,
+              transform: isExpanded ? "translateY(0)" : "translateY(10px)",
+              position: isExpanded ? "static" : "absolute",
+            }}
+          >
+            Hide Tech Stack
+          </span>
+          {isExpanded ? (
+            <FaChevronUp className="w-3 h-3 transition-transform duration-300" />
+          ) : (
+            <FaChevronDown className="w-3 h-3 transition-transform duration-300" />
+          )}
+        </p>
+      </div>
 
       {/* Tech Stack Card - follows the text movement */}
       <div
