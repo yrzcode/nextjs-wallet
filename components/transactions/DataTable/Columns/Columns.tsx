@@ -82,7 +82,7 @@ const TableColumns: ColumnDef<Transaction>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Time of Transaction
+          Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

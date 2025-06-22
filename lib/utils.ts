@@ -6,6 +6,11 @@ export const cn = (...inputs: ClassValue[]) => {
 };
 
 export const formatDate = (date: Date) => {
-	const formattedDate = date.toLocaleString("ja-JP", { hour12: false });
-	return formattedDate;
+	const formattedDate = date.toLocaleDateString("ja-JP", {
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+	});
+	// Add spaces around the slashes: 2025/06/21 -> 2025 / 06 / 21
+	return formattedDate.replace(/\//g, " / ");
 };
