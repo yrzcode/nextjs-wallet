@@ -132,15 +132,15 @@ const TransactionModal = () => {
             </div>
 
             <div className="grid gap-3">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="content">Content</Label>
               <Textarea
-                name="description"
-                defaultValue={transaction?.description || ""}
-                placeholder="Enter a description"
+                name="content"
+                defaultValue={transaction?.content || ""}
+                placeholder="Enter a content"
               />
-              {transactionInputErrors?.description && (
+              {transactionInputErrors?.content && (
                 <p className="text-red-500">
-                  *{transactionInputErrors.description}
+                  *{transactionInputErrors.content}
                 </p>
               )}
             </div>

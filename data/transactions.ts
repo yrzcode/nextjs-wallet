@@ -77,7 +77,7 @@ const generateTransactionWithDateRange = (
 	return {
 		type: transactionType as TransactionType,
 		amount,
-		description: randomDescription,
+		content: randomDescription,
 		userId,
 		date: createdAt,
 		createdAt,

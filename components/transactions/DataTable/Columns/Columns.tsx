@@ -34,9 +34,9 @@ const TableColumns: ColumnDef<Transaction>[] = [
     size: 120,
   },
   {
-    accessorKey: "description",
+    accessorKey: "content",
     header: ({ column }) => (
-      <ColumnHeader title="Description" column={column} sortable />
+      <ColumnHeader title="Content" column={column} sortable />
     ),
     size: 9999,
     minSize: 200,

@@ -16,12 +16,12 @@ const transactionSchema = z.object({
 	amount: z.number().positive({
 		message: "Amount must be greater than 0",
 	}),
-	// description: z.string().min(1, {
-	// 	message: "Description cannot be empty",
+	// content: z.string().min(1, {
+	// 	message: "Content cannot be empty",
 	// }),
 	date: z
 		.date()
-		.max(new Date(), {
+		.max(new Date(new Date().setHours(23, 59, 59, 999)), {
 			message: "Date cannot be in the future",
 		})
 		.optional(),
@@ -38,7 +38,7 @@ export const createNewTransaction = async (formData: FormData) => {
 	// Extract data from FormData
 	const rawType = formData.get("type") as string;
 	const rawAmount = formData.get("amount") as string;
-	const rawDescription = formData.get("description") as string;
+	const rawContent = formData.get("content") as string;
 	const rawDateString = formData.get("date") as string;
 
 	// Parse and validate the data
@@ -74,7 +74,7 @@ export const createNewTransaction = async (formData: FormData) => {
 		data: {
 			type: parseResult.data.type,
 			amount: parseResult.data.amount,
-			description: rawDescription,
+			content: rawContent,
 			userId,
 			date: parseResult.data.date || new Date(),
 		},
@@ -92,7 +92,7 @@ export const updateTransaction = async (
 	// Extract data from FormData
 	const rawType = formData.get("type") as string;
 	const rawAmount = formData.get("amount") as string;
-	const rawDescription = formData.get("description") as string;
+	const rawContent = formData.get("content") as string;
 	const rawDateString = formData.get("date") as string;
 
 	// Parse and validate the data
@@ -129,7 +129,7 @@ export const updateTransaction = async (
 		data: {
 			type: parseResult.data.type,
 			amount: parseResult.data.amount,
-			description: rawDescription,
+			content: rawContent,
 			date: parseResult.data.date || new Date(),
 		},
 	});

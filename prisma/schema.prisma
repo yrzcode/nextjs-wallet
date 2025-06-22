@@ -24,13 +24,13 @@ model User {
 }
 
 model Transaction {
-  id          String          @id @default(uuid())
-  type        TransactionType
-  amount      Float
-  description String
-  userId      String
-  user        User            @relation(fields: [userId], references: [id])
-  date        DateTime        @default(now())
-  createdAt   DateTime        @default(now()) @map("created_at")
-  updatedAt   DateTime        @updatedAt @map("updated_at")
+  id        String          @id @default(uuid())
+  type      TransactionType
+  amount    Float
+  content   String?
+  userId    String
+  user      User            @relation(fields: [userId], references: [id])
+  date      DateTime        @default(now())
+  createdAt DateTime        @default(now()) @map("created_at")
+  updatedAt DateTime        @updatedAt @map("updated_at")
 }
