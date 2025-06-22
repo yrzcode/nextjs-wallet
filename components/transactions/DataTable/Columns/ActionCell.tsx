@@ -18,7 +18,6 @@ const ActionCell = ({ row }: { row: Row<Transaction> }) => {
   const { setModalTransaction, openTransactionModal } = useUiStore();
   const transaction = row.original;
   const handleEditTransaction = () => {
-    console.log("edit");
     setModalTransaction(transaction);
     openTransactionModal();
   };
