@@ -114,7 +114,7 @@ const DataTable = <TData, TValue>({
   return (
     <>
       <div className="flex justify-between items-center mb-4">
-        <TableActions />
+        <TableActions table={table} />
         <TableFilter table={table} />
       </div>
 

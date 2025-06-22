@@ -1,8 +1,14 @@
 import useUiStore from "@/hooks/stores/useTransactionModalStore";
 import { Button } from "@/components/ui/button";
 import { FaPlus, FaDownload } from "react-icons/fa";
+import { CSVLink } from "react-csv";
+import { Table } from "@tanstack/react-table";
 
-const TableActions = () => {
+const TableActions = <TData,>({ table }: { table: Table<TData> }) => {
+  const data = table
+    .getFilteredRowModel()
+    .rows.map((row) => row.original) as object[];
+
   const { openTransactionModal, clearModalTransaction } = useUiStore();
   const handleOpenTransactionModal = () => {
     clearModalTransaction();
@@ -18,10 +24,12 @@ const TableActions = () => {
         <FaPlus />
         Add Transaction
       </Button>
-      <Button variant="outline" className="underline">
-        <FaDownload />
-        Download CSV
-      </Button>
+      <CSVLink data={data} filename="transactions.csv">
+        <Button variant="outline" className="underline">
+          Download CSV
+          <FaDownload />
+        </Button>
+      </CSVLink>
     </div>
   );
 };
