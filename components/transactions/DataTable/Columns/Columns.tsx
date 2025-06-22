@@ -1,21 +1,11 @@
 "use client";
 
+import ActionCell from "./ActionCell";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Transaction } from "@prisma/client";
 import { formatDate } from "@/lib/utils";
-import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { FaEdit, FaTrash } from "react-icons/fa";
 import { ArrowUpDown } from "lucide-react";
-import { deleteTransaction } from "@/actions/transactions";
 
 const TableColumns: ColumnDef<Transaction>[] = [
   {
@@ -106,32 +96,7 @@ const TableColumns: ColumnDef<Transaction>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const transactionId = row.original.id;
-      const handleDeleteTransaction = () => {
-        deleteTransaction(transactionId);
-      };
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <FaEdit /> Edit
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDeleteTransaction}>
-              <FaTrash /> Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ActionCell,
     size: 80,
   },
 ];

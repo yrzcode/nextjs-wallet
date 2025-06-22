@@ -1,6 +1,6 @@
 "use client";
 
-import useUiStore from "@/hooks/stores/userUiStore";
+import useUiStore from "@/hooks/stores/useTransactionModalStore";
 import DatePicker from "../utils/Inputs/DatePicker";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,17 +24,33 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
-import { createNewTransaction } from "@/actions/transactions";
+import {
+  createNewTransaction,
+  updateTransaction,
+} from "@/actions/transactions";
 
-const TransactionModal = ({ transactionId }: { transactionId?: string }) => {
-  const { isTransactionModalOpen, closeTransactionModal } = useUiStore();
+const TransactionModal = () => {
+  const {
+    transaction,
+    isTransactionModalOpen,
+    closeTransactionModal,
+    clearModalTransaction,
+  } = useUiStore();
 
-  const dialogDescription = transactionId
+  const dialogTitle = transaction ? "Edit Transaction" : "Add Transaction";
+
+  const dialogDescription = transaction
     ? "Edit Transaction - Modify existing transaction details including type, amount, and description"
     : "Add a new transaction record. Please fill in the transaction details including transaction type and amount.";
 
+  const dialogButton = transaction ? "Save Changes" : "Add New Transaction";
+
   const handleFormAction = async (formData: FormData) => {
-    await createNewTransaction(formData);
+    if (transaction) {
+      updateTransaction(transaction.id, formData);
+    } else {
+      await createNewTransaction(formData);
+    }
     closeTransactionModal();
   };
 
@@ -44,19 +60,20 @@ const TransactionModal = ({ transactionId }: { transactionId?: string }) => {
       onOpenChange={(open) => {
         if (!open) {
           closeTransactionModal();
+          clearModalTransaction();
         }
       }}
     >
       <DialogContent className="sm:max-w-[425px]">
         <form action={handleFormAction}>
           <DialogHeader>
-            <DialogTitle>Add Transaction</DialogTitle>
+            <DialogTitle>{dialogTitle}</DialogTitle>
             <DialogDescription>{dialogDescription}</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 my-4">
             <div className="grid gap-3">
               <Label htmlFor="type">Transaction Type</Label>
-              <Select name="type">
+              <Select name="type" defaultValue={transaction?.type}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a transaction type" />
                 </SelectTrigger>
@@ -72,19 +89,29 @@ const TransactionModal = ({ transactionId }: { transactionId?: string }) => {
 
             <div className="grid gap-3">
               <Label htmlFor="date">Date</Label>
-              <DatePicker name="date" />
+              <DatePicker
+                name="date"
+                defaultDate={
+                  transaction?.date ? new Date(transaction.date) : undefined
+                }
+              />
             </div>
 
             <div className="grid gap-3">
               <Label htmlFor="amount">Amount</Label>
-              <Input name="amount" type="number" placeholder="0" />
+              <Input
+                name="amount"
+                type="number"
+                placeholder="0"
+                defaultValue={transaction?.amount?.toString() || ""}
+              />
             </div>
 
             <div className="grid gap-3">
               <Label htmlFor="description">Description</Label>
               <Textarea
                 name="description"
-                defaultValue=""
+                defaultValue={transaction?.description || ""}
                 placeholder="Enter a description"
               />
             </div>
@@ -94,7 +121,7 @@ const TransactionModal = ({ transactionId }: { transactionId?: string }) => {
               type="submit"
               className="bg-button-accent hover:bg-button-hover text-black"
             >
-              {transactionId ? "Save Changes" : "Add New Transaction"}
+              {dialogButton}
             </Button>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>

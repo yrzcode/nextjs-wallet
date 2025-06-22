@@ -1,4 +1,4 @@
-import Columns from "../../components/transactions/DataTable/Columns";
+import Columns from "../../components/transactions/DataTable/Columns/Columns";
 import DataTable from "@/components/transactions/DataTable/DataTable";
 import TransactionModal from "@/components/transactions/TransactionModal";
 import { getAllTransactions } from "@/actions/transactions";

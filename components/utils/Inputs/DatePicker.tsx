@@ -15,17 +15,22 @@ const DatePicker = ({
   onDateChange,
   placeholder = "Select date",
   name,
+  defaultDate,
 }: {
   date?: Date;
   onDateChange?: (date?: Date) => void;
   placeholder?: string;
   name?: string;
+  defaultDate?: Date;
 }) => {
   const [open, setOpen] = useState(false);
-  const [internalDate, setInternalDate] = useState<Date | undefined>(date);
+  const [internalDate, setInternalDate] = useState<Date | undefined>(
+    defaultDate || date
+  );
 
-  // Use internal state if no date prop is provided (uncontrolled mode)
-  const currentDate = date !== undefined ? date : internalDate;
+  // Determine if this is controlled or uncontrolled mode
+  const isControlled = onDateChange !== undefined;
+  const currentDate = isControlled ? date : internalDate;
 
   // Custom date formatter: 2025 / 6 / 7
   const formatDate = (date: Date): string => {
@@ -37,7 +42,7 @@ const DatePicker = ({
 
   // Handle date selection
   const handleDateSelect = (selectedDate?: Date) => {
-    if (onDateChange) {
+    if (isControlled && onDateChange) {
       onDateChange(selectedDate);
     } else {
       setInternalDate(selectedDate);
