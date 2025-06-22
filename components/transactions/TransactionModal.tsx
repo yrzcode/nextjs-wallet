@@ -73,7 +73,11 @@ const TransactionModal = () => {
           <div className="grid gap-4 my-4">
             <div className="grid gap-3">
               <Label htmlFor="type">Transaction Type</Label>
-              <Select name="type" defaultValue={transaction?.type}>
+              <Select
+                name="type"
+                defaultValue={transaction?.type || "Deposit"}
+                required
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a transaction type" />
                 </SelectTrigger>
@@ -92,7 +96,7 @@ const TransactionModal = () => {
               <DatePicker
                 name="date"
                 defaultDate={
-                  transaction?.date ? new Date(transaction.date) : undefined
+                  transaction?.date ? new Date(transaction.date) : new Date()
                 }
               />
             </div>
@@ -102,8 +106,10 @@ const TransactionModal = () => {
               <Input
                 name="amount"
                 type="number"
+                min="0"
                 placeholder="0"
                 defaultValue={transaction?.amount?.toString() || ""}
+                required
               />
             </div>
 
