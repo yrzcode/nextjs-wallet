@@ -35,6 +35,8 @@ const TransactionModal = () => {
     isTransactionModalOpen,
     closeTransactionModal,
     clearModalTransaction,
+    transactionInputErrors,
+    setTransactionInputErrors,
   } = useUiStore();
 
   const dialogTitle = transaction ? "Edit Transaction" : "Add Transaction";
@@ -46,12 +48,19 @@ const TransactionModal = () => {
   const dialogButton = transaction ? "Save Changes" : "Add New Transaction";
 
   const handleFormAction = async (formData: FormData) => {
+    let result:
+      | { success: boolean; errors?: Record<string, string[]> }
+      | undefined;
     if (transaction) {
-      updateTransaction(transaction.id, formData);
+      result = await updateTransaction(transaction.id, formData);
     } else {
-      await createNewTransaction(formData);
+      result = await createNewTransaction(formData);
     }
-    closeTransactionModal();
+    if (!result?.success) {
+      setTransactionInputErrors(result?.errors || {});
+    } else {
+      closeTransactionModal();
+    }
   };
 
   return (
@@ -89,6 +98,9 @@ const TransactionModal = () => {
                   </SelectGroup>
                 </SelectContent>
               </Select>
+              {transactionInputErrors?.type && (
+                <p className="text-red-500">*{transactionInputErrors.type}</p>
+              )}
             </div>
 
             <div className="grid gap-3">
@@ -99,6 +111,9 @@ const TransactionModal = () => {
                   transaction?.date ? new Date(transaction.date) : new Date()
                 }
               />
+              {transactionInputErrors?.date && (
+                <p className="text-red-500">*{transactionInputErrors.date}</p>
+              )}
             </div>
 
             <div className="grid gap-3">
@@ -111,6 +126,9 @@ const TransactionModal = () => {
                 defaultValue={transaction?.amount?.toString() || ""}
                 required
               />
+              {transactionInputErrors?.amount && (
+                <p className="text-red-500">*{transactionInputErrors.amount}</p>
+              )}
             </div>
 
             <div className="grid gap-3">
@@ -120,6 +138,11 @@ const TransactionModal = () => {
                 defaultValue={transaction?.description || ""}
                 placeholder="Enter a description"
               />
+              {transactionInputErrors?.description && (
+                <p className="text-red-500">
+                  *{transactionInputErrors.description}
+                </p>
+              )}
             </div>
           </div>
           <DialogFooter>

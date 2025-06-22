@@ -3,6 +3,8 @@ import { create } from "zustand";
 
 type TransactionModalState = {
 	transaction?: Transaction;
+	transactionInputErrors?: Record<string, string[]>;
+	setTransactionInputErrors: (errors: Record<string, string[]>) => void;
 	isTransactionModalOpen: boolean;
 	openTransactionModal: () => void;
 	closeTransactionModal: () => void;
@@ -12,6 +14,7 @@ type TransactionModalState = {
 
 const useUiStore = create<TransactionModalState>((set) => ({
 	transaction: undefined,
+	transactionInputErrors: undefined,
 	isTransactionModalOpen: false,
 	openTransactionModal: () =>
 		set(() => ({
@@ -20,10 +23,16 @@ const useUiStore = create<TransactionModalState>((set) => ({
 	closeTransactionModal: () =>
 		set(() => ({
 			isTransactionModalOpen: false,
+			transactionInputErrors: undefined,
 		})),
-	setModalTransaction: (transaction: Transaction) => {
+	setModalTransaction: (transaction) => {
 		set(() => ({
 			transaction: transaction,
+		}));
+	},
+	setTransactionInputErrors: (errors) => {
+		set(() => ({
+			transactionInputErrors: errors,
 		}));
 	},
 	clearModalTransaction: () => {
