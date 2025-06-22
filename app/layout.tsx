@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto_Flex as Roboto } from "next/font/google";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import AppFooter from "@/components/layouts/AppFooter";
+import AppFooter from "@/components/layouts/AppSiderbar/AppFooter/AppFooter";
 import AppNavbar from "@/components/layouts/AppNavbar";
 import AppSidebar from "@/components/layouts/AppSiderbar/AppSidebar";
 
