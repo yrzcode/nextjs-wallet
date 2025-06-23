@@ -1,19 +1,27 @@
 import useUiStore from "@/hooks/stores/useTransactionModalStore";
+import type { Table } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { FaPlus, FaDownload } from "react-icons/fa";
 import { CSVLink } from "react-csv";
-import { Table } from "@tanstack/react-table";
+import { useState, useEffect } from "react";
 
 const TableActions = <TData,>({ table }: { table: Table<TData> }) => {
+  const [isClient, setIsClient] = useState(false);
   const data = table
     .getFilteredRowModel()
     .rows.map((row) => row.original) as object[];
 
   const { openTransactionModal, clearModalTransaction } = useUiStore();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const handleOpenTransactionModal = () => {
     clearModalTransaction();
     openTransactionModal();
   };
+
   return (
     <div className="flex gap-2">
       <Button
@@ -24,12 +32,23 @@ const TableActions = <TData,>({ table }: { table: Table<TData> }) => {
         <FaPlus />
         Add Transaction
       </Button>
-      <CSVLink data={data} filename="transactions.csv">
-        <Button variant="outline" className="underline">
+      {isClient ? (
+        <CSVLink
+          data={data}
+          filename="transactions.csv"
+          className="inline-block"
+        >
+          <Button variant="outline" className="underline">
+            Download CSV
+            <FaDownload />
+          </Button>
+        </CSVLink>
+      ) : (
+        <Button variant="outline" className="underline" disabled>
           Download CSV
           <FaDownload />
         </Button>
-      </CSVLink>
+      )}
     </div>
   );
 };
