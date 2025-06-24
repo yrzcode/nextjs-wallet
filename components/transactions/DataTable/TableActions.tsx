@@ -1,5 +1,6 @@
 import useUiStore from "@/hooks/stores/useTransactionModalStore";
 import type { Table } from "@tanstack/react-table";
+import type { Transaction } from "@/types/transaction";
 import { Button } from "@/components/ui/button";
 import { FaPlus, FaDownload } from "react-icons/fa";
 import { CSVLink } from "react-csv";
@@ -7,9 +8,20 @@ import { useState, useEffect } from "react";
 
 const TableActions = <TData,>({ table }: { table: Table<TData> }) => {
   const [isClient, setIsClient] = useState(false);
-  const data = table
-    .getFilteredRowModel()
-    .rows.map((row) => row.original) as object[];
+  const data = table.getFilteredRowModel().rows.map((row) => {
+    const original = row.original as Transaction;
+    const date = new Date(original.date);
+    const formattedDate = `${date.getFullYear()} / ${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")} / ${String(date.getDate()).padStart(2, "0")}`;
+
+    return {
+      Type: original.type,
+      Amount: original.amount,
+      Content: original.content,
+      Date: formattedDate,
+    };
+  });
 
   const { openTransactionModal, clearModalTransaction } = useUiStore();
 
