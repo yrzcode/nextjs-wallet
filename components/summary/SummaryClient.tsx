@@ -4,7 +4,7 @@ import type { Transaction } from "@/types/transaction";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, TrendingDown, Wallet } from "lucide-react";
+import { TrendingUp, TrendingDown, Wallet, BarChart } from "lucide-react";
 import {
   LineChart,
   Line,
@@ -190,9 +190,12 @@ const SummaryClient = ({ transactions }: SummaryClientProps) => {
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
           <div className="w-2 h-8 bg-green-800 rounded-full" />
-          <h1 className="text-4xl font-bold text-green-800">
-            Financial Summary
-          </h1>
+          <div className="flex items-center gap-3">
+            <h1 className="text-4xl font-bold text-green-800">
+              Financial Summary
+            </h1>
+            <BarChart className="text-green-800 text-4xl" />
+          </div>
         </div>
 
         {/* Time Period Selector */}
@@ -215,174 +218,179 @@ const SummaryClient = ({ transactions }: SummaryClientProps) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
-        {/* Income Card */}
-        <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
-          <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-green-700">
-              <TrendingUp className="h-5 w-5" />
-              Total Income
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <div className="text-3xl font-bold text-green-800">
-                  {formatAmount(incomeData.current)}
+      <div className="space-y-6">
+        {/* First Row: Income and Expenditure */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Income Card */}
+          <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 gap-0">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-green-700">
+                <TrendingUp className="h-5 w-5" />
+                Total Income
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <div className="text-3xl font-bold text-green-800">
+                    {formatAmount(incomeData.current)}
+                  </div>
+                  <div
+                    className={`text-sm ${
+                      incomeData.changePercent >= 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {formatPercent(incomeData.changePercent)} from last period
+                  </div>
                 </div>
-                <div
-                  className={`text-sm ${
-                    incomeData.changePercent >= 0
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {formatPercent(incomeData.changePercent)} from last period
+                <div className="h-32">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={incomeData.chartData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                      <XAxis
+                        dataKey="date"
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 10, fill: "#6b7280" }}
+                      />
+                      <YAxis
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 10, fill: "#6b7280" }}
+                        tickFormatter={(value) =>
+                          `$${(value / 1000).toFixed(0)}k`
+                        }
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#10b981"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
-              <div className="h-32">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={incomeData.chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                    <XAxis
-                      dataKey="date"
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 10, fill: "#6b7280" }}
-                    />
-                    <YAxis
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 10, fill: "#6b7280" }}
-                      tickFormatter={(value) =>
-                        `$${(value / 1000).toFixed(0)}k`
-                      }
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#10b981"
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        {/* Expense Card */}
-        <Card className="bg-gradient-to-br from-red-50 to-rose-50 border-red-200">
-          <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-red-700">
-              <TrendingDown className="h-5 w-5" />
-              Total Expenses
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <div className="text-3xl font-bold text-red-800">
-                  {formatAmount(expenseData.current)}
+          {/* Expense Card */}
+          <Card className="bg-gradient-to-br from-red-50 to-rose-50 border-red-200 gap-0">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-red-700">
+                <TrendingDown className="h-5 w-5" />
+                Total Expenditure
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <div className="text-3xl font-bold text-red-800">
+                    {formatAmount(expenseData.current)}
+                  </div>
+                  <div
+                    className={`text-sm ${
+                      expenseData.changePercent >= 0
+                        ? "text-red-600"
+                        : "text-green-600"
+                    }`}
+                  >
+                    {formatPercent(expenseData.changePercent)} from last period
+                  </div>
                 </div>
-                <div
-                  className={`text-sm ${
-                    expenseData.changePercent >= 0
-                      ? "text-red-600"
-                      : "text-green-600"
-                  }`}
-                >
-                  {formatPercent(expenseData.changePercent)} from last period
+                <div className="h-32">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={expenseData.chartData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                      <XAxis
+                        dataKey="date"
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 10, fill: "#6b7280" }}
+                      />
+                      <YAxis
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 10, fill: "#6b7280" }}
+                        tickFormatter={(value) =>
+                          `$${(value / 1000).toFixed(0)}k`
+                        }
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#ef4444"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
-              <div className="h-32">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={expenseData.chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                    <XAxis
-                      dataKey="date"
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 10, fill: "#6b7280" }}
-                    />
-                    <YAxis
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 10, fill: "#6b7280" }}
-                      tickFormatter={(value) =>
-                        `$${(value / 1000).toFixed(0)}k`
-                      }
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#ef4444"
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
 
-        {/* Net Worth Card */}
-        <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
-          <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-blue-700">
-              <Wallet className="h-5 w-5" />
-              Net Worth
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <div className="text-3xl font-bold text-blue-800">
-                  {formatAmount(balanceData.current)}
+        {/* Second Row: Net Worth */}
+        <div className="grid grid-cols-1">
+          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 gap-0">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-blue-700">
+                <Wallet className="h-5 w-5" />
+                Net Worth
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div>
+                  <div className="text-3xl font-bold text-blue-800">
+                    {formatAmount(balanceData.current)}
+                  </div>
+                  <div
+                    className={`text-sm ${
+                      balanceData.changePercent >= 0
+                        ? "text-green-600"
+                        : "text-red-600"
+                    }`}
+                  >
+                    {formatPercent(balanceData.changePercent)} from last period
+                  </div>
                 </div>
-                <div
-                  className={`text-sm ${
-                    balanceData.changePercent >= 0
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {formatPercent(balanceData.changePercent)} from last period
+                <div className="h-32">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={balanceData.chartData}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                      <XAxis
+                        dataKey="date"
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 10, fill: "#6b7280" }}
+                      />
+                      <YAxis
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fontSize: 10, fill: "#6b7280" }}
+                        tickFormatter={(value) =>
+                          `$${(value / 1000).toFixed(0)}k`
+                        }
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="value"
+                        stroke="#3b82f6"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
                 </div>
               </div>
-              <div className="h-32">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={balanceData.chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                    <XAxis
-                      dataKey="date"
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 10, fill: "#6b7280" }}
-                    />
-                    <YAxis
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 10, fill: "#6b7280" }}
-                      tickFormatter={(value) =>
-                        `$${(value / 1000).toFixed(0)}k`
-                      }
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="value"
-                      stroke="#3b82f6"
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

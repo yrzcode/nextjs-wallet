@@ -90,9 +90,16 @@ const BalanceCard = ({
       {/* Main balance info card */}
       <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
         <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-xl text-green-800">
-            <FaWallet className="text-green-800" />
-            Wallet Balance
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-8 bg-green-800 rounded-full" />
+              <div className="flex items-center gap-3">
+                <span className="text-4xl font-bold text-green-800">
+                  Wallet Balance
+                </span>
+                <FaWallet className="text-green-800 text-3xl" />
+              </div>
+            </div>
             <Badge
               variant="outline"
               className={`ml-auto px-3 py-1 text-sm font-semibold border-0 ${getBadgeColorClasses(
