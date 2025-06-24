@@ -149,3 +149,43 @@ export const deleteTransaction = async (transactionId: string) => {
 	// Revalidate the transactions page to refresh the data
 	revalidatePath("/transactions");
 };
+
+export const getBalanceData = async (filter?: string) => {
+	const allTransactions = await prisma.transaction.findMany({
+		orderBy: {
+			date: "desc",
+		},
+	});
+
+	let filteredTransactions = allTransactions;
+
+	// Filter transactions based on filter parameter
+	if (filter === "income") {
+		filteredTransactions = allTransactions.filter((t) => t.type === "Deposit");
+	} else if (filter === "expenditure") {
+		filteredTransactions = allTransactions.filter(
+			(t) => t.type === "Withdrawal",
+		);
+	}
+
+	// Calculate total income
+	const totalIncome = allTransactions
+		.filter((t) => t.type === "Deposit")
+		.reduce((sum, t) => sum + t.amount, 0);
+
+	// Calculate total expenditure
+	const totalExpenditure = allTransactions
+		.filter((t) => t.type === "Withdrawal")
+		.reduce((sum, t) => sum + t.amount, 0);
+
+	// Calculate balance
+	const balance = totalIncome - totalExpenditure;
+
+	return {
+		totalIncome,
+		totalExpenditure,
+		balance,
+		transactions: filteredTransactions,
+		filter: filter || "all",
+	};
+};

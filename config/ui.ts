@@ -57,8 +57,8 @@ const uiConfig: UIConfig = {
 					path: "/balance?filter=income",
 				},
 				{
-					name: "Expense",
-					path: "/balance?filter=expense",
+					name: "Expenditure",
+					path: "/balance?filter=expenditure",
 				},
 			],
 		},
