@@ -32,6 +32,20 @@ export const getAllTransactions = async (): Promise<Transaction[]> => {
 	return transactions;
 };
 
+export const getTransactionsByUserId = async (
+	userId: string,
+): Promise<Transaction[]> => {
+	const transactions = await prisma.transaction.findMany({
+		where: {
+			userId: userId,
+		},
+		orderBy: {
+			date: "desc",
+		},
+	});
+	return transactions;
+};
+
 export const createNewTransaction = async (formData: FormData) => {
 	const userId = testUserId;
 
