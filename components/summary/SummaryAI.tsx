@@ -1,65 +1,137 @@
 "use client";
 
+import ReactMarkdown from "react-markdown";
 import type { Transaction } from "@/types/transaction";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import { useEffect, useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-const SummaryAI = ({ transactions }: { transactions: Transaction[] }) => {
+type TimePeriod = "1M" | "3M" | "6M" | "1Y" | "3Y" | "5Y" | "10Y";
+
+const SummaryAI = ({
+  transactions,
+  selectedPeriod,
+}: {
+  transactions: Transaction[];
+  selectedPeriod: TimePeriod;
+}) => {
   const [summary, setSummary] = useState("");
+  const [isSummaryLoading, setIsSummaryLoading] = useState(false);
 
   useEffect(() => {
-    console.debug("🚀 ~ SummaryAI.tsx:10 ~ SummaryAI ~ summary:", summary);
-  }, [summary]);
+    const getFilteredTransactions = (period: TimePeriod) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
-  useEffect(() => {
+      const cutoffDate = new Date(today);
+
+      switch (period) {
+        case "1M":
+          cutoffDate.setMonth(today.getMonth() - 1);
+          break;
+        case "3M":
+          cutoffDate.setMonth(today.getMonth() - 3);
+          break;
+        case "6M":
+          cutoffDate.setMonth(today.getMonth() - 6);
+          break;
+        case "1Y":
+          cutoffDate.setFullYear(today.getFullYear() - 1);
+          break;
+        case "3Y":
+          cutoffDate.setFullYear(today.getFullYear() - 3);
+          break;
+        case "5Y":
+          cutoffDate.setFullYear(today.getFullYear() - 5);
+          break;
+        case "10Y":
+          cutoffDate.setFullYear(today.getFullYear() - 10);
+          break;
+        default:
+          cutoffDate.setMonth(today.getMonth() - 1);
+      }
+
+      console.debug(
+        "Filter period:",
+        period,
+        "Cutoff date:",
+        cutoffDate.toISOString()
+      );
+      console.debug("Total transactions:", transactions.length);
+
+      const filtered = transactions.filter((t) => {
+        const transactionDate = new Date(t.date);
+        transactionDate.setHours(0, 0, 0, 0);
+        return transactionDate >= cutoffDate;
+      });
+
+      console.debug("Filtered transactions:", filtered.length);
+
+      return filtered;
+    };
+
+    const filteredTransactions = getFilteredTransactions(selectedPeriod);
+
     const prompt = `
-    You are a financial assistant.
-    You are given a list of transactions and you need to generate a summary of the transactions.
-    The transactions are:
-    ${transactions
+    You are a financial assistant analyzing transactions for the past ${selectedPeriod}.
+    Here are the filtered transactions for this period:
+    ${filteredTransactions
       .map(
         (transaction) =>
-          `${transaction.date} - ${transaction.content} - ${transaction.amount}`
+          `${transaction.date} - ${transaction.type}: ${transaction.content} - $${transaction.amount}`
       )
       .join("\n")}
-    Please provide a 100-word summary of the transaction data.
+    Please provide a concise financial analysis for this ${selectedPeriod} period focusing on:
+    - Spending patterns and trends
+    - Major expense categories
+    - Financial habits and behaviors
+    - Key insights and observations
+    
+    DO NOT include specific amounts for total income, total expenses, or net balance.
+    Focus on qualitative analysis rather than quantitative summaries.
+    Use **bold** for important categories or insights.
+    Keep it under 100 words.
     `;
 
     const fetchSummary = async () => {
-      const res = await fetch("api/openai", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt }),
-      });
-      const data = await res.json();
-
-      console.debug("🚀 ~ SummaryAI.tsx:34 ~ fetchSummary ~ summary:", data);
-
-      setSummary(data.result.content);
+      try {
+        setIsSummaryLoading(true);
+        const res = await fetch("api/openai", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt }),
+        });
+        const data = await res.json();
+        setSummary(data.result.content);
+      } catch (error) {
+        console.error("Error fetching summary:", error);
+        setSummary("Unable to generate summary at this time.");
+      } finally {
+        setIsSummaryLoading(false);
+      }
     };
 
-    fetchSummary();
-  }, [transactions]);
+    if (filteredTransactions.length > 0) {
+      fetchSummary();
+    } else {
+      setSummary(`No transactions found for the past ${selectedPeriod}.`);
+    }
+  }, [transactions, selectedPeriod]);
 
   return (
-    <Card className="flex flex-row">
-      <div className="w-1/2">
-        <CardHeader>AI Summary</CardHeader>
-        <CardContent>
-          <p>{summary}</p>
-        </CardContent>
-      </div>
-      <div className="w-1/2">
-        <CardHeader>AI Advice</CardHeader>
-        <CardContent>
-          <p>
-            a This is a summary of your transactions. It is generated by an AI
-            assistant.
-          </p>
-        </CardContent>
-      </div>
+    <Card>
+      <CardContent>
+        {isSummaryLoading ? (
+          <div className="flex items-center gap-2">
+            <AiOutlineLoading3Quarters className="animate-spin" />
+            <p>Loading Summary...</p>
+          </div>
+        ) : (
+          <ReactMarkdown>{summary}</ReactMarkdown>
+        )}
+      </CardContent>
     </Card>
   );
 };

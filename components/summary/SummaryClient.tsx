@@ -219,7 +219,7 @@ const SummaryClient = ({ transactions }: SummaryClientProps) => {
         </div>
       </div>
 
-      <SummaryAI transactions={transactions} />
+      <SummaryAI transactions={transactions} selectedPeriod={selectedPeriod} />
 
       <div className="space-y-6">
         {/* First Row: Income and Expenditure */}
