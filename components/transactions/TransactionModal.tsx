@@ -28,6 +28,7 @@ import {
   createNewTransaction,
   updateTransaction,
 } from "@/actions/transactions";
+import { toast } from "sonner";
 
 const TransactionModal = () => {
   const {
@@ -58,7 +59,13 @@ const TransactionModal = () => {
     }
     if (!result?.success) {
       setTransactionInputErrors(result?.errors || {});
+      toast.error("Failed to save transaction", {
+        description: "Please check the form and try again",
+      });
     } else {
+      toast.success("Transaction saved successfully", {
+        description: "The transaction has been saved successfully",
+      });
       closeTransactionModal();
     }
   };

@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppFooter from "@/components/layouts/AppSiderbar/AppFooter/AppFooter";
 import AppNavbar from "@/components/layouts/AppNavbar";
 import AppSidebar from "@/components/layouts/AppSiderbar/AppSidebar";
+import { Toaster } from "sonner";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
 
@@ -33,6 +34,8 @@ export default function RootLayout({
                 iconSize={30}
               />
             </nav>
+
+            <Toaster position="top-right" closeButton />
 
             <main className="flex flex-col flex-1 overflow-y-auto">
               {children}

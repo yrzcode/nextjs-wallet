@@ -154,14 +154,25 @@ export const updateTransaction = async (
 };
 
 export const deleteTransaction = async (transactionId: string) => {
-	await prisma.transaction.delete({
-		where: {
-			id: transactionId,
-		},
-	});
+	try {
+		await prisma.transaction.delete({
+			where: {
+				id: transactionId,
+			},
+		});
 
-	// Revalidate the transactions page to refresh the data
-	revalidatePath("/transactions");
+		// Revalidate the transactions page to refresh the data
+		revalidatePath("/transactions");
+		return { success: true };
+	} catch (error) {
+		console.error("Failed to delete transaction:", error);
+		return { 
+			success: false, 
+			errors: { 
+				general: ["Failed to delete transaction, please try again later"] 
+			} 
+		};
+	}
 };
 
 export const getBalanceData = async (filter?: string) => {

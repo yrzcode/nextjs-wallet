@@ -13,6 +13,7 @@ import {
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { deleteTransaction } from "@/actions/transactions";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const ActionCell = ({ row }: { row: Row<Transaction> }) => {
   const { setModalTransaction, openTransactionModal } = useUiStore();
@@ -21,8 +22,22 @@ const ActionCell = ({ row }: { row: Row<Transaction> }) => {
     setModalTransaction(transaction);
     openTransactionModal();
   };
-  const handleDeleteTransaction = () => {
-    deleteTransaction(transaction.id);
+  const handleDeleteTransaction = async () => {
+    try {
+      const result = await deleteTransaction(transaction.id);
+      if (result.success) {
+        toast.success("Transaction deleted successfully");
+      } else {
+        toast.error("Failed to delete transaction", {
+          description: "Please try again later",
+        });
+      }
+    } catch (error) {
+      console.error("Failed to delete transaction:", error);
+      toast.error("Failed to delete transaction", {
+        description: "Please try again later",
+      });
+    }
   };
 
   return (
