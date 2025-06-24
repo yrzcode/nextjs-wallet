@@ -56,11 +56,11 @@ const BalanceCard = ({
   const getBadgeColorClasses = (filterType: string) => {
     switch (filterType) {
       case "income":
-        return "bg-gradient-to-r from-green-50 to-emerald-50 border-green-300 text-green-700";
+        return "text-green-700";
       case "expenditure":
-        return "bg-gradient-to-r from-red-50 to-rose-50 border-red-300 text-red-700";
+        return "text-red-700";
       default:
-        return "bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-300 text-blue-700";
+        return "text-blue-700";
     }
   };
 
@@ -95,7 +95,7 @@ const BalanceCard = ({
             Wallet Balance
             <Badge
               variant="outline"
-              className={`ml-auto px-3 py-1 text-sm font-semibold shadow-sm hover:shadow-md transition-shadow duration-200 ${getBadgeColorClasses(
+              className={`ml-auto px-3 py-1 text-sm font-semibold border-0 ${getBadgeColorClasses(
                 filter
               )}`}
             >
