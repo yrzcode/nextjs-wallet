@@ -186,6 +186,8 @@ const SummaryClient = ({ transactions }: SummaryClientProps) => {
   const expenseData = calculateSummaryData("expense");
   const balanceData = calculateSummaryData("balance");
 
+  const shouldUseAISummary = process.env.NEXT_PUBLIC_USE_OPENAI === "TRUE";
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex justify-between items-center">
@@ -219,7 +221,12 @@ const SummaryClient = ({ transactions }: SummaryClientProps) => {
         </div>
       </div>
 
-      <SummaryAI transactions={transactions} selectedPeriod={selectedPeriod} />
+      {shouldUseAISummary && (
+        <SummaryAI
+          transactions={transactions}
+          selectedPeriod={selectedPeriod}
+        />
+      )}
 
       <div className="space-y-6">
         {/* First Row: Income and Expenditure */}
