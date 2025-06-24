@@ -1,5 +1,6 @@
 "use client";
 
+import SummaryAI from "./SummaryAI";
 import type { Transaction } from "@/types/transaction";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -217,6 +218,8 @@ const SummaryClient = ({ transactions }: SummaryClientProps) => {
           ))}
         </div>
       </div>
+
+      <SummaryAI transactions={transactions} />
 
       <div className="space-y-6">
         {/* First Row: Income and Expenditure */}
