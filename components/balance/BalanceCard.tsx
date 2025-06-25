@@ -191,27 +191,6 @@ const BalanceCard = ({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center text-gray-600">
-            {filter === "income" && (
-              <p>
-                Showing all income transactions. Click the sidebar to switch to
-                expenditure or all transactions.
-              </p>
-            )}
-            {filter === "expenditure" && (
-              <p>
-                Showing all expenditure transactions. Click the sidebar to
-                switch to income or all transactions.
-              </p>
-            )}
-            {filter === "all" && (
-              <p>
-                Showing all transactions. Click the sidebar to filter by income
-                or expenditure transactions.
-              </p>
-            )}
-          </div>
-
           {transactions.length > 0 && (
             <div className="mt-4 space-y-2 max-h-64 overflow-y-auto">
               {transactions.slice(0, 5).map((transaction) => (
