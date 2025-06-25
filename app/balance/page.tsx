@@ -2,14 +2,15 @@ import { getBalanceData } from "@/actions/transactions";
 import BalanceCard from "@/components/balance/BalanceCard";
 
 interface BalancePageProps {
-  searchParams: {
+  searchParams: Promise<{
     filter?: string;
-  };
+  }>;
 }
 
 const BalancePage = async ({ searchParams }: BalancePageProps) => {
   // Get filter parameter
-  const filter = searchParams.filter || "all";
+  const resolvedSearchParams = await searchParams;
+  const filter = resolvedSearchParams.filter || "all";
 
   // Get balance data
   const balanceData = await getBalanceData(
