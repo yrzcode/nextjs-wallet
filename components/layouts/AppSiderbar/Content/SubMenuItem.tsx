@@ -8,8 +8,9 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { useSearchParams, usePathname } from "next/navigation";
+import { Suspense } from "react";
 
-const SubMenuItem = ({
+const SubMenuItemContent = ({
   name,
   path,
   onClick,
@@ -55,6 +56,24 @@ const SubMenuItem = ({
         </SidebarMenuButton>
       </SidebarMenuSubItem>
     </SidebarMenuSub>
+  );
+};
+
+const SubMenuItem = (props: MenuItem & { onClick?: () => void }) => {
+  return (
+    <Suspense fallback={
+      <SidebarMenuSub>
+        <SidebarMenuSubItem>
+          <SidebarMenuButton asChild size="default">
+            <Link href={props.path} className="text-sm">
+              <span>{props.name}</span>
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuSubItem>
+      </SidebarMenuSub>
+    }>
+      <SubMenuItemContent {...props} />
+    </Suspense>
   );
 };
 
