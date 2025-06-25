@@ -211,7 +211,7 @@ const SummaryClient = ({ transactions }: SummaryClientProps) => {
               onClick={() => setSelectedPeriod(period.value)}
               className={
                 selectedPeriod === period.value
-                  ? "bg-white shadow-sm text-black font-bold"
+                  ? "bg-white shadow-sm text-black font-bold hover:text-white"
                   : ""
               }
             >

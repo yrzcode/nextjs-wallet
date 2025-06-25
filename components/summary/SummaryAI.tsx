@@ -3,7 +3,7 @@
 import ReactMarkdown from "react-markdown";
 import type { Transaction } from "@/types/transaction";
 import { Card, CardContent } from "../ui/card";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 type TimePeriod = "1M" | "3M" | "6M" | "1Y" | "3Y" | "5Y" | "10Y";
@@ -17,6 +17,19 @@ const SummaryAI = ({
 }) => {
   const [summary, setSummary] = useState("");
   const [isSummaryLoading, setIsSummaryLoading] = useState(false);
+
+  const getPeriodDisplayText = useCallback((period: TimePeriod): string => {
+    const periodMap = {
+      "1M": "last one month",
+      "3M": "last three months",
+      "6M": "last six months",
+      "1Y": "last one year",
+      "3Y": "last three years",
+      "5Y": "last five years",
+      "10Y": "last ten years",
+    };
+    return periodMap[period];
+  }, []);
 
   useEffect(() => {
     const getFilteredTransactions = (period: TimePeriod) => {
@@ -73,7 +86,9 @@ const SummaryAI = ({
     const filteredTransactions = getFilteredTransactions(selectedPeriod);
 
     const prompt = `
-    You are a financial assistant analyzing transactions for the past ${selectedPeriod}.
+    You are a financial assistant analyzing transactions for the ${getPeriodDisplayText(
+      selectedPeriod
+    )}.
     Here are the filtered transactions for this period:
     ${filteredTransactions
       .map(
@@ -81,7 +96,9 @@ const SummaryAI = ({
           `${transaction.date} - ${transaction.type}: ${transaction.content} - $${transaction.amount}`
       )
       .join("\n")}
-    Please provide a concise financial analysis for this ${selectedPeriod} period focusing on:
+    Please provide a concise financial analysis for this ${getPeriodDisplayText(
+      selectedPeriod
+    )} period focusing on:
     - Spending patterns and trends
     - Major expense categories
     - Financial habits and behaviors
@@ -90,6 +107,9 @@ const SummaryAI = ({
     DO NOT include specific amounts for total income, total expenses, or net balance.
     Focus on qualitative analysis rather than quantitative summaries.
     Use **bold** for important categories or insights.
+    IMPORTANT: When mentioning the time period, always use **${getPeriodDisplayText(
+      selectedPeriod
+    )}** in bold format.
     Keep it under 100 words.
     `;
 
@@ -118,7 +138,7 @@ const SummaryAI = ({
     } else {
       setSummary(`No transactions found for the past ${selectedPeriod}.`);
     }
-  }, [transactions, selectedPeriod]);
+  }, [transactions, selectedPeriod, getPeriodDisplayText]);
 
   return (
     <Card>
@@ -126,7 +146,10 @@ const SummaryAI = ({
         {isSummaryLoading ? (
           <div className="flex items-center gap-2">
             <AiOutlineLoading3Quarters className="animate-spin" />
-            <p>Loading Summary...</p>
+            <p>
+              GPT is summarizing transactions over the{" "}
+              {getPeriodDisplayText(selectedPeriod)}...
+            </p>
           </div>
         ) : (
           <ReactMarkdown>{summary}</ReactMarkdown>
