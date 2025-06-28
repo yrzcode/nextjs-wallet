@@ -28,7 +28,7 @@ This is a modern financial management application built with Next.js, featuring 
 ### Prerequisites
 
 - Node.js 18.0 or higher
-- npm or yarn package manager
+- npm and yarn package manager
 
 ### Setup Instructions
 
