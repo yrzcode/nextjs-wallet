@@ -133,7 +133,7 @@ This project adopts a modern frontend architecture design with the following key
 
 ### Particularly Creative Points
 
-1. **Advanced Data Table Functionality**:
+1. **Advanced Data Table **Functionality****:
    - Leveraged TanStack Table's headless architecture to create highly customizable and performant data tables with virtualization support
    - Implemented multi-dimensional filtering system including date range pickers, transaction type filters, and amount range filtering
    - Built custom column sorting with persistent state management across user sessions
