@@ -50,26 +50,55 @@ yarn test-storybook --watch
 
 The project is configured with the following test options:
 
-- Uses Chromium browser
-- 15-second test timeout
-- Limited concurrency in CI environment
-- Automatically includes all story files
-- Excludes introductory documentation
+- Uses Chromium browser for test execution
+- 15-second test timeout for each story
+- Limited concurrency (2 workers) in CI environment
+- Automatically includes all story files matching pattern `**/stories/**/*.stories.@(js|jsx|ts|tsx|mdx)`
+- Excludes Introduction.stories.mdx documentation files
+- Accessibility testing enabled with error-level reporting for detailed violation information
 
 ## Story Coverage
 
 Current tests cover the following story scenarios:
 
-### DataTable Stories:
+### DataTable
 
-- Default: Default data table display
-- Empty State: Empty state handling
-- Deposits Only: Show deposits only
-- Withdrawals Only: Show withdrawals only
-- Single Row: Single row data
-- Large Dataset: Large dataset pagination
+- **Default**: Basic data table with transaction records
+- **WithSorting**: Table with sortable columns and sorting indicators
+- **WithFiltering**: Table with date range and content filtering
+- **WithPagination**: Paginated table with navigation controls
+- **EmptyState**: Table display when no data is available
+- **Interactive testing**: Complex play tests for sorting, filtering, and pagination
+- **Accessibility features**: Screen reader support with ARIA labels and descriptions
+- **Column management**: Resizable columns and flexible layout
+- **Data validation**: Proper handling of different data types and formats
 
-### RangeDatePicker Stories
+### TransactionModal
+
+- **AddTransaction**: New transaction creation modal with form validation
+- **EditTransaction**: Existing transaction modification modal
+- **WithValidation**: Form validation demonstration with error handling
+- **EmptyForm**: Clean form state for new entries
+- **PrefilledForm**: Form with existing transaction data
+- **ErrorStates**: Various validation error scenarios
+- **Form interactions**: Input validation, submission, and error handling
+- **Modal behavior**: Proper dialog management and focus handling
+- **ARIA compliance**: Accessible form labels and error announcements
+- **User feedback**: Toast notifications and validation messages
+
+### BalanceCard
+
+- **AllTransactions**: Complete balance view with income, expenditure, and transaction list
+- **IncomeFilter**: Income-only view with filtered transaction display
+- **ExpenditureFilter**: Expenditure-only view with filtered transaction display
+- **EmptyTransactions**: Zero balance state with empty transaction list
+- **Interactive testing**: Play tests verify balance calculations and accessibility
+- **ARIA labeling**: Proper semantic labeling for screen readers
+- **Transaction lists**: Accessible list structures with item descriptions
+- **Filter validation**: Tests ensure correct filtering logic and display
+- **Amount formatting**: Proper currency display and calculation verification
+
+### RangeDatePicker
 
 - **Default**: Default date picker
 - **WithDatesSelected**: Pre-selected date range
@@ -85,7 +114,7 @@ Current tests cover the following story scenarios:
 - **Last10Years**: Last 10 years preset
 - **InteractiveDemo**: Interactive demonstration with all preset buttons
 
-### Button Stories
+### Button
 
 - **Default**: Default button with click interaction and state verification
 - **Destructive**: Destructive button with click testing and style validation
@@ -104,18 +133,68 @@ Current tests cover the following story scenarios:
 - **Accessibility testing**: Validates proper button roles and attributes
 - **Edge case handling**: Tests disabled button interaction prevention
 
+### Badge
 
-#### 🧪 Comprehensive Testing
+- **Default**: Standard badge with role and aria-live attributes
+- **Secondary**: Secondary variant badge with muted styling
+- **Destructive**: Error/danger badge with destructive styling
+- **Outline**: Outlined badge variant with border styling
+- **StatusBadges**: Collection of status indicators (In Progress, Pending, Cancelled, Completed)
+- **NumberBadges**: Numeric badges for counts and notifications (1, 99+, !, NEW)
+- **ColorfulBadges**: Custom colored badges with enhanced contrast (Success, Warning, Info, Purple)
+- **Accessibility features**: Proper ARIA roles and live regions for screen readers
+- **Color contrast**: Enhanced color combinations for better readability
+- **Status indicators**: Different visual states for various use cases
 
-- Individual tests for each preset button functionality
-- Visual verification of preset story displays
-- Interactive demo testing with all preset buttons
-- Proper date range validation for each preset
-- **Button component play functions with step-by-step interaction testing**
+### Card
 
-## Notes
+- **Default**: Basic card with header, title, description, and content
+- **WithFooter**: Card including footer section with action buttons
+- **WithAction**: Card with action button in header area
+- **ComplexCard**: Complete card example with all elements and status indicators
+- **Layout flexibility**: Various card configurations for different use cases
+- **Action patterns**: Different button placements and styling approaches
+- **Content organization**: Structured content areas with proper hierarchy
 
-1. Ensure to start the Storybook server before running tests
-2. Tests automatically check basic component rendering and interaction functionality
-3. Includes basic accessibility testing
-4. Test results generate detailed reports
+### Dialog
+
+- **Default**: Profile editing dialog with form inputs and validation
+- **SimpleDialog**: Basic confirmation dialog with action buttons
+- **AlertDialog**: Destructive action confirmation with typed confirmation
+- **Modal behavior**: Proper focus management and keyboard navigation
+- **Form integration**: Input validation and submission handling
+- **Action patterns**: Different button configurations for various dialog types
+
+### Input
+- **Default**: Basic text input with placeholder
+- **WithValue**: Input with pre-filled default value and label
+- **Email**: Email input type with validation
+- **Password**: Password input with secure text masking
+- **NumberInput**: Numeric input with number validation
+- **Search**: Search input variant with search styling
+- **Disabled**: Disabled input state demonstration
+- **WithLabel**: Properly labeled input with semantic association
+- **WithError**: Error state input with validation messages and ARIA attributes
+- **Type variations**: Different input types for various data collection needs
+- **Validation states**: Error handling and user feedback mechanisms
+
+### Select
+- **Default**: Basic select dropdown with options
+- **WithLabel**: Properly labeled select with semantic association
+- **WithValue**: Pre-selected default value demonstration
+- **Disabled**: Disabled select state with proper ARIA attributes
+- **WithError**: Error state select with validation messages
+- **MultipleOptions**: Select with grouped options and categories
+- **Interactive testing**: Play tests for option selection and validation
+- **Accessibility features**: Screen reader support and keyboard navigation
+- **Form integration**: Proper form submission and validation handling
+
+### Skeleton
+- **Default**: Basic rounded skeleton loader
+- **Rectangle**: Rectangular skeleton for content blocks
+- **Circle**: Circular skeleton for avatars and icons
+- **TextLines**: Multiple text line skeletons for paragraph content
+- **CardSkeleton**: Profile card skeleton with avatar and text
+- **ProfileSkeleton**: Complete profile skeleton with all elements
+- **Loading states**: Various skeleton patterns for different content types
+- **Animation effects**: Subtle loading animations for better user experience

@@ -67,9 +67,16 @@ const DatePicker = ({
             variant="outline"
             id="date"
             className="w-full justify-between font-normal text-sm"
+            aria-label={
+              currentDate
+                ? `Selected date: ${formatDate(currentDate)}`
+                : placeholder
+            }
+            aria-haspopup="dialog"
+            aria-expanded={open}
           >
             {currentDate ? formatDate(currentDate) : placeholder}
-            <ChevronDownIcon className="h-4 w-4" />
+            <ChevronDownIcon className="h-4 w-4" aria-hidden="true" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">

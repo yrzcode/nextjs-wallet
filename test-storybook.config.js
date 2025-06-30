@@ -1,22 +1,23 @@
 module.exports = {
-  storybookUrl: 'http://localhost:6006',
-  
-  // 配置浏览器
-  browsers: ['chromium'],
-  
-  // 测试超时时间
-  testTimeout: 15000,
-  
-  // 并发运行数量
-  maxWorkers: process.env.CI ? 2 : undefined,
-  
-  // 要测试的story文件
-  include: [
-    '**/stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'
-  ],
-  
-  // 排除的story文件
-  exclude: [
-    '**/stories/**/Introduction.stories.mdx'
-  ]
-}; 
+	storybookUrl: "http://localhost:6006",
+
+	// Browser configuration
+	browsers: ["chromium"],
+
+	// Test timeout
+	testTimeout: 15000,
+
+	// Number of concurrent workers
+	maxWorkers: process.env.CI ? 2 : undefined,
+
+	// Story files to test
+	include: ["**/stories/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
+
+	// Excluded story files
+	exclude: ["**/stories/**/Introduction.stories.mdx"],
+
+	// A11y configuration
+	a11y: {
+		test: "error", // Treat a11y violations as errors and show detailed information
+	},
+};

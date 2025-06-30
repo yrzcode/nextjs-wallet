@@ -72,10 +72,18 @@ export const NumberBadges: Story = {
 export const ColorfulBadges: Story = {
   render: () => (
     <div className="flex flex-wrap gap-2">
-      <Badge className="bg-green-500 hover:bg-green-600">Success</Badge>
-      <Badge className="bg-yellow-500 hover:bg-yellow-600">Warning</Badge>
-      <Badge className="bg-blue-500 hover:bg-blue-600">Info</Badge>
-      <Badge className="bg-purple-500 hover:bg-purple-600">Purple</Badge>
+      <Badge className="bg-green-900 hover:bg-green-950 text-white border-green-900">
+        Success
+      </Badge>
+      <Badge className="bg-yellow-800 hover:bg-yellow-900 text-white border-yellow-800">
+        Warning
+      </Badge>
+      <Badge className="bg-blue-800 hover:bg-blue-900 text-white border-blue-800">
+        Info
+      </Badge>
+      <Badge className="bg-purple-800 hover:bg-purple-900 text-white border-purple-800">
+        Purple
+      </Badge>
     </div>
   ),
 };

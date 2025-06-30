@@ -30,9 +30,18 @@ export const Default: Story = {
 };
 
 export const WithValue: Story = {
-  args: {
-    defaultValue: "This is the input text",
-  },
+  render: (args) => (
+    <div className="space-y-2">
+      <label htmlFor="input-with-value" className="text-sm font-medium">
+        Description
+      </label>
+      <Input
+        id="input-with-value"
+        defaultValue="This is the input text"
+        {...args}
+      />
+    </div>
+  ),
 };
 
 export const Email: Story = {
@@ -92,10 +101,13 @@ export const WithError: Story = {
         type="email"
         placeholder="Enter email..."
         aria-invalid="true"
-        className="border-red-500"
+        aria-describedby="input-error-message"
+        className="border-red-600 focus-visible:border-red-600"
         {...args}
       />
-      <p className="text-sm text-red-500">Please enter a valid email address</p>
+      <p id="input-error-message" className="text-sm text-red-600">
+        Please enter a valid email address
+      </p>
     </div>
   ),
 };

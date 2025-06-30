@@ -111,7 +111,11 @@ const MockTransactionModal = ({
                 defaultValue={transaction?.type || "Deposit"}
                 required
               >
-                <SelectTrigger className="w-full">
+                <SelectTrigger
+                  id="type"
+                  className="w-full"
+                  aria-describedby={errors?.type ? "type-error" : undefined}
+                >
                   <SelectValue placeholder="Select a transaction type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -123,7 +127,9 @@ const MockTransactionModal = ({
                 </SelectContent>
               </Select>
               {errors?.type && (
-                <p className="text-red-500">*{errors.type[0]}</p>
+                <p id="type-error" className="text-red-500">
+                  *{errors.type[0]}
+                </p>
               )}
             </div>
 
@@ -136,34 +142,44 @@ const MockTransactionModal = ({
                 }
               />
               {errors?.date && (
-                <p className="text-red-500">*{errors.date[0]}</p>
+                <p id="date-error" className="text-red-500">
+                  *{errors.date[0]}
+                </p>
               )}
             </div>
 
             <div className="grid gap-3">
               <Label htmlFor="amount">Amount</Label>
               <Input
+                id="amount"
                 name="amount"
                 type="number"
                 min="0"
                 placeholder="0"
                 defaultValue={transaction?.amount?.toString() || ""}
+                aria-describedby={errors?.amount ? "amount-error" : undefined}
                 required
               />
               {errors?.amount && (
-                <p className="text-red-500">*{errors.amount[0]}</p>
+                <p id="amount-error" className="text-red-500">
+                  *{errors.amount[0]}
+                </p>
               )}
             </div>
 
             <div className="grid gap-3">
               <Label htmlFor="content">Content</Label>
               <Textarea
+                id="content"
                 name="content"
                 defaultValue={transaction?.content || ""}
                 placeholder="Enter a content"
+                aria-describedby={errors?.content ? "content-error" : undefined}
               />
               {errors?.content && (
-                <p className="text-red-500">*{errors.content[0]}</p>
+                <p id="content-error" className="text-red-500">
+                  *{errors.content[0]}
+                </p>
               )}
             </div>
           </div>

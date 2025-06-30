@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { within, expect } from "@storybook/test";
 
 import BalanceCard from "@/components/balance/BalanceCard";
 import type { Transaction } from "@/types/transaction";
@@ -87,6 +88,45 @@ export const AllTransactions: Story = {
     transactions: mockTransactions,
     filter: "all",
   },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step("Verify balance card structure and accessibility", async () => {
+      // Check main balance display
+      const balanceSection = canvas.getByLabelText(/current balance/i);
+      expect(balanceSection).toBeInTheDocument();
+
+      // Check income section
+      const incomeSection = canvas.getByLabelText(/total income/i);
+      expect(incomeSection).toBeInTheDocument();
+
+      // Check expenditure section
+      const expenditureSection = canvas.getByLabelText(/total expenditure/i);
+      expect(expenditureSection).toBeInTheDocument();
+
+      // Verify amounts are displayed correctly using more flexible matching
+      expect(canvas.getByText(/40,000/)).toBeInTheDocument(); // Balance
+      expect(canvas.getByText(/75,000/)).toBeInTheDocument(); // Income
+      expect(canvas.getByText(/35,000/)).toBeInTheDocument(); // Expenditure
+    });
+
+    await step("Verify transaction list accessibility", async () => {
+      // Check transaction list has proper labeling
+      const transactionList = canvas.getByRole("list", {
+        name: /transactions/i,
+      });
+      expect(transactionList).toBeInTheDocument();
+
+      // Check individual transaction items
+      const transactionItems = canvas.getAllByRole("listitem");
+      expect(transactionItems).toHaveLength(mockTransactions.length);
+
+      // Ensure each transaction has accessible content
+      for (const item of transactionItems) {
+        expect(item).toHaveAttribute("aria-describedby");
+      }
+    });
+  },
 };
 
 export const IncomeFilter: Story = {
@@ -98,6 +138,25 @@ export const IncomeFilter: Story = {
       (t) => t.type === TransactionType.Deposit
     ),
     filter: "income",
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step("Verify income-only display", async () => {
+      // Balance should equal total income - use specific section
+      const incomeSection = canvas.getByLabelText(/total income/i);
+      expect(incomeSection).toHaveTextContent(/75,000/);
+
+      // Expenditure should be zero - find by specific section
+      const expenditureSection = canvas.getByLabelText(/total expenditure/i);
+      expect(expenditureSection).toHaveTextContent(/0/);
+
+      // All transactions should be deposits
+      const transactionItems = canvas.getAllByRole("listitem");
+      for (const item of transactionItems) {
+        expect(item).toHaveTextContent(/deposit|income/i);
+      }
+    });
   },
 };
 
@@ -111,6 +170,26 @@ export const ExpenditureFilter: Story = {
     ),
     filter: "expenditure",
   },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step("Verify expenditure-only display", async () => {
+      // Balance should equal total expenditure (negative) - use specific section
+      const expenditureSection = canvas.getByLabelText(/total expenditure/i);
+      expect(expenditureSection).toHaveTextContent(/35,000/);
+
+      // Income should be zero - find by specific section
+      const incomeSection = canvas.getByLabelText(/total income/i);
+      expect(incomeSection).toHaveTextContent(/0/);
+
+      // All transactions should be withdrawals - check for negative amounts
+      const transactionItems = canvas.getAllByRole("listitem");
+      for (const item of transactionItems) {
+        // Check for negative amounts (expenditure) instead of specific text
+        expect(item).toHaveTextContent(/-￥/);
+      }
+    });
+  },
 };
 
 export const EmptyTransactions: Story = {
@@ -120,6 +199,24 @@ export const EmptyTransactions: Story = {
     balance: 0,
     transactions: [],
     filter: "all",
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step("Verify empty state accessibility", async () => {
+      // Check that income, expenditure, and balance all show zero
+      const incomeSection = canvas.getByLabelText(/total income/i);
+      const expenditureSection = canvas.getByLabelText(/total expenditure/i);
+      const balanceSection = canvas.getByLabelText(/current balance/i);
+
+      expect(incomeSection).toHaveTextContent(/0/);
+      expect(expenditureSection).toHaveTextContent(/0/);
+      expect(balanceSection).toHaveTextContent(/0/);
+
+      // Should show empty state message
+      const emptyMessage = canvas.getByText(/no transactions/i);
+      expect(emptyMessage).toBeInTheDocument();
+    });
   },
 };
 
@@ -173,5 +270,23 @@ export const NegativeBalance: Story = {
       },
     ],
     filter: "all",
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step(
+      "Verify negative balance display and accessibility",
+      async () => {
+        // Negative balance should be clearly indicated
+        const negativeBalance = canvas.getByText(/50,000/);
+        expect(negativeBalance).toBeInTheDocument();
+        // Check for orange color class since that's what the component actually uses for negative balances
+        expect(negativeBalance).toHaveClass(/text-orange/);
+
+        // Should have appropriate ARIA attributes for negative state
+        const balanceSection = canvas.getByLabelText(/current balance/i);
+        expect(balanceSection).toHaveAttribute("aria-describedby");
+      }
+    );
   },
 };

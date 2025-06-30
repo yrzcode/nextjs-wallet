@@ -9499,6 +9499,11 @@ test-exclude@^7.0.1:
     glob "^10.4.1"
     minimatch "^9.0.4"
 
+test-storybook@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/test-storybook/-/test-storybook-1.0.0.tgz#a58803e92701ded29685379d9e803e48acec935d"
+  integrity sha512-RtDFtyCG8ObpYWxCPrQOof4p8xahuudC9IMT6ERl62ciax/Dw/sYrkxBoGK9GIQkXWSzWwP2lkmpiJiBx7fcdw==
+
 tiny-invariant@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.3.3.tgz#46680b7a873a0d5d10005995eb90a70d74d60127"
