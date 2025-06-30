@@ -1,6 +1,6 @@
 # Technical Assignment by MFBC-CTO Office Frontend Forward Division
 
-## Project Overview
+## 📋 Project Overview
 
 This is a modern financial management application built with Next.js, featuring the following core functionalities:
 
@@ -24,7 +24,7 @@ This is a modern financial management application built with Next.js, featuring 
 - 🗄️ Prisma ORM + SQLite database
 - 📚 Storybook for component development and interactive documentation
 
-## Installation Steps
+## ⚙️ Installation Steps
 
 ### Prerequisites
 
@@ -82,11 +82,11 @@ This is a modern financial management application built with Next.js, featuring 
 - **Run component tests**: `yarn test-storybook`
 - **Build Storybook**: `yarn build-storybook`
 
-## Amount of Time to complete
+## ⏱️ Amount of Time to complete
 
-Total: Approximately 30-40 hours
+Total: Approximately 40 hours
 
-## Design Decisions
+## 🎨 Design Decisions
 
 This project adopts a modern frontend architecture design with the following key design decisions:
 
@@ -144,7 +144,7 @@ This project adopts a modern frontend architecture design with the following key
   - Created story variants for different component states (loading, error, empty, success)
   - Established testing best practices and guidelines for maintaining code quality standards
 
-## Technology Choices
+## 🛠️ Technology Choices
 
 ### Core Technology Stack Selection
 
@@ -172,7 +172,7 @@ This project adopts a modern frontend architecture design with the following key
 8. **Storybook**
    - Reason: Enables isolated component development and testing in a sandbox environment, provides interactive documentation for UI components with live examples and usage patterns, supports comprehensive testing including visual regression testing and accessibility validation, facilitates design system maintenance with centralized component library, enhances team collaboration through shared component documentation, offers extensive addon ecosystem for enhanced development workflow, and enables automated testing with play functions for complex user interactions
 
-## Key points for Evaluation
+## ⭐ Key points for Evaluation
 
 ### Particularly Creative Points
 
@@ -223,7 +223,7 @@ This project adopts a modern frontend architecture design with the following key
    - Established component isolation environment enabling focused development and debugging without application dependencies
    - Built automated visual regression testing capabilities with detailed component behavior documentation
 
-## AI Utilization
+## 🤖 AI Utilization
 
 - **AI tools used**: ChatGPT, Claude
 - **Use cases**:
@@ -239,7 +239,7 @@ This project adopts a modern frontend architecture design with the following key
   - Enhanced AI-generated database query optimization strategies to improve query performance and reduce resource consumption
   - Refined AI-suggested user interface implementations to adhere to modern UX design principles and accessibility guidelines
 
-## Reflections & Areas for Improvement
+## 🔍 Reflections & Areas for Improvement
 
 ### Project Reflections
 
@@ -261,7 +261,7 @@ Successfully implemented all core requirements for the financial management appl
 6. **Offline Support**: Implement PWA functionality for offline usage
 7. **Security Enhancement**: Add user authentication system and data encryption features
 
-## References
+## 📚 References
 
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Prisma Documentation](https://www.prisma.io/docs)
