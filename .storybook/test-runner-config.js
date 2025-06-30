@@ -4,6 +4,19 @@ module.exports = {
 	testTimeout: 60000,
 	workers: process.env.CI ? 2 : undefined,
 
+  async preRender(page, context) {
+    await injectAxe(page);
+  },
+  
+  async postRender(page, context) {
+    await checkA11y(page, '#root', {
+      detailedReport: true,
+      detailedReportOptions: {
+        html: true,
+      },
+    })
+  },
+
 	async preVisit(page) {
 		await injectAxe(page);
 	},

@@ -4,30 +4,6 @@
 
 This project uses Storybook's test-runner for automated component testing.
 
-## Created Test Files
-
-### 1. DataTable Tests (`stories/DataTable.test.ts`)
-
-Tests various DataTable component functionalities:
-
-- Default data rendering
-- Sorting functionality
-- Pagination controls
-- Empty state display
-- Filter functionality (deposits only, withdrawals only)
-- Keyboard accessibility
-
-### 2. RangeDatePicker Tests (`stories/RangeDatePicker.test.ts`)
-
-Tests various RangeDatePicker component functionalities:
-- Basic rendering
-- Date selection
-- Clear functionality
-- **Multiple preset buttons** (7 days, 30 days, 3 months, 6 months, 1 year, 5 years, 10 years)
-- Disabled state
-- Keyboard accessibility
-- Individual preset story testing
-
 ## Running Tests
 
 ### Start Storybook
@@ -112,17 +88,25 @@ Current tests cover the following story scenarios:
 - **Last10Years**: Last 10 years preset 
 - **InteractiveDemo**: Interactive demonstration with all preset buttons
 
-### New Features Added
+### Button Stories
 
-#### 🆕 Extended Time Range Presets
+- **Default**: Default button with click interaction and state verification
+- **Destructive**: Destructive button with click testing and style validation
+- **Outline**: Outline button with click testing and border style verification
+- **Secondary**: Secondary button variant (static display)
+- **Ghost**: Ghost button variant (static display)
+- **Link**: Link button variant (static display)
+- **Small**: Small size button variant (static display)
+- **Large**: Large size button variant (static display)
+- **ExtraLarge**: Extra large size button variant (static display)
+- **Icon**: Icon button with click interaction and size class verification
+- **Disabled**: Disabled button with state validation and interaction prevention testing
+- **Click interactions**: Tests user click events on different button variants
+- **Style validation**: Verifies correct CSS classes are applied (destructive, outline, icon sizing)
+- **State verification**: Ensures buttons maintain correct enabled/disabled states
+- **Accessibility testing**: Validates proper button roles and attributes
+- **Edge case handling**: Tests disabled button interaction prevention
 
-The RangeDatePicker now includes comprehensive time range options:
-
-- **Last 3 months**: 3 months back from current date
-- **Last 6 months**: 6 months back from current date  
-- **Last 1 year**: 1 year back from current date
-- **Last 5 years**: 5 years back from current date
-- **Last 10 years**: 10 years back from current date
 
 #### 🧪 Comprehensive Testing
 
@@ -130,6 +114,7 @@ The RangeDatePicker now includes comprehensive time range options:
 - Visual verification of preset story displays
 - Interactive demo testing with all preset buttons
 - Proper date range validation for each preset
+- **Button component play functions with step-by-step interaction testing**
 
 ## Notes
 
