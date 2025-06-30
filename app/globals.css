@@ -142,6 +142,21 @@
   }
 }
 
+/* Remove outlines for Storybook preview */
+.sb-show-main *, 
+.docs-story *,
+[data-story] * {
+  outline: none !important;
+}
+
+/* Add focus styles for accessibility in Storybook */
+.sb-show-main *:focus, 
+.docs-story *:focus,
+[data-story] *:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5) !important;
+  outline-offset: 2px !important;
+}
+
 @layer utilities {
   .bg-side {
     background-color: var(--color-side);
