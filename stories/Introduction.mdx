@@ -6,7 +6,7 @@ import { Meta } from '@storybook/blocks';
 
 This is a Next.js-based wallet management application that contains rich UI components and business components. This documentation showcases the usage and interactive effects of all major components in the project.
 
-## Created Stories Files
+## Created Testing Files
 
 ### UI Base Components
 - **Button.stories.ts** - Button component variants (default, destructive, outline, secondary, ghost, link, etc.) and sizes
@@ -18,6 +18,7 @@ This is a Next.js-based wallet management application that contains rich UI comp
 - **Skeleton.stories.tsx** - Skeleton component various shapes and use cases
 
 ### Business Components
+- **DataTable.stories.tsx** - Data table component with sorting, filtering, and pagination features
 - **BalanceCard.stories.tsx** - Balance card component different data states and filter modes
 - **TransactionModal.stories.tsx** - Transaction modal component create and edit modes
 
@@ -63,7 +64,7 @@ stories/
 
 1. Start the Storybook development server:
    ```bash
-   npm run storybook
+   yarn storybook
    ```
 
 2. View component Stories in your browser
@@ -113,3 +114,4 @@ This is a **Next.js** wallet application using the following key technologies:
 - **State Management**: Zustand
 - **Development Tools**: Storybook, Vitest
 - **AI Integration**: OpenAI API
+- **Testing**: Storybook Testing Library
