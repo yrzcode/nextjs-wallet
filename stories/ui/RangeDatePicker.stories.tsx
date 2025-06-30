@@ -241,6 +241,101 @@ export const Last30Days: Story = {
   },
 };
 
+// Last 3 months
+export const Last3Months: Story = {
+  args: {
+    initialStartDate: (() => {
+      const date = new Date();
+      date.setMonth(date.getMonth() - 3);
+      return date;
+    })(),
+    initialEndDate: new Date(),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Range date picker preset with the last 3 months.",
+      },
+    },
+  },
+};
+
+// Last 6 months
+export const Last6Months: Story = {
+  args: {
+    initialStartDate: (() => {
+      const date = new Date();
+      date.setMonth(date.getMonth() - 6);
+      return date;
+    })(),
+    initialEndDate: new Date(),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Range date picker preset with the last 6 months.",
+      },
+    },
+  },
+};
+
+// Last 1 year
+export const Last1Year: Story = {
+  args: {
+    initialStartDate: (() => {
+      const date = new Date();
+      date.setFullYear(date.getFullYear() - 1);
+      return date;
+    })(),
+    initialEndDate: new Date(),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Range date picker preset with the last 1 year.",
+      },
+    },
+  },
+};
+
+// Last 5 years
+export const Last5Years: Story = {
+  args: {
+    initialStartDate: (() => {
+      const date = new Date();
+      date.setFullYear(date.getFullYear() - 5);
+      return date;
+    })(),
+    initialEndDate: new Date(),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Range date picker preset with the last 5 years.",
+      },
+    },
+  },
+};
+
+// Last 10 years
+export const Last10Years: Story = {
+  args: {
+    initialStartDate: (() => {
+      const date = new Date();
+      date.setFullYear(date.getFullYear() - 10);
+      return date;
+    })(),
+    initialEndDate: new Date(),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Range date picker preset with the last 10 years.",
+      },
+    },
+  },
+};
+
 // Interactive demo
 export const InteractiveDemo: Story = {
   render: () => {
@@ -272,6 +367,56 @@ export const InteractiveDemo: Story = {
           const end = new Date();
           const start = new Date();
           start.setDate(start.getDate() - 30);
+          setStartDate(start);
+          setEndDate(end);
+        },
+      },
+      {
+        label: "Last 3 months",
+        action: () => {
+          const end = new Date();
+          const start = new Date();
+          start.setMonth(start.getMonth() - 3);
+          setStartDate(start);
+          setEndDate(end);
+        },
+      },
+      {
+        label: "Last 6 months",
+        action: () => {
+          const end = new Date();
+          const start = new Date();
+          start.setMonth(start.getMonth() - 6);
+          setStartDate(start);
+          setEndDate(end);
+        },
+      },
+      {
+        label: "Last 1 year",
+        action: () => {
+          const end = new Date();
+          const start = new Date();
+          start.setFullYear(start.getFullYear() - 1);
+          setStartDate(start);
+          setEndDate(end);
+        },
+      },
+      {
+        label: "Last 5 years",
+        action: () => {
+          const end = new Date();
+          const start = new Date();
+          start.setFullYear(start.getFullYear() - 5);
+          setStartDate(start);
+          setEndDate(end);
+        },
+      },
+      {
+        label: "Last 10 years",
+        action: () => {
+          const end = new Date();
+          const start = new Date();
+          start.setFullYear(start.getFullYear() - 10);
           setStartDate(start);
           setEndDate(end);
         },
