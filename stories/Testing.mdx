@@ -44,9 +44,6 @@ yarn test-storybook --verbose
 
 # Run in watch mode
 yarn test-storybook --watch
-
-# Run with coverage report
-yarn test-storybook --coverage
 ```
 
 ## Test Configuration
@@ -81,11 +78,11 @@ Current tests cover the following story scenarios:
 - **CurrentMonthRange**: Current month preset
 - **Last7Days**: Last 7 days preset
 - **Last30Days**: Last 30 days preset
-- **Last3Months**: Last 3 months preset 
-- **Last6Months**: Last 6 months preset 
-- **Last1Year**: Last 1 year preset 
-- **Last5Years**: Last 5 years preset 
-- **Last10Years**: Last 10 years preset 
+- **Last3Months**: Last 3 months preset
+- **Last6Months**: Last 6 months preset
+- **Last1Year**: Last 1 year preset
+- **Last5Years**: Last 5 years preset
+- **Last10Years**: Last 10 years preset
 - **InteractiveDemo**: Interactive demonstration with all preset buttons
 
 ### Button Stories
@@ -122,13 +119,3 @@ Current tests cover the following story scenarios:
 2. Tests automatically check basic component rendering and interaction functionality
 3. Includes basic accessibility testing
 4. Test results generate detailed reports
-5. **All preset buttons are tested for proper date range setting**
-
-## Extending Tests
-
-To add new tests, you can:
-
-1. Add new test cases to existing test files
-2. Create new `.test.ts` files
-3. Ensure test files follow Playwright test format
-4. **Test new preset buttons by adding them to the InteractiveDemo story and corresponding test cases** 
