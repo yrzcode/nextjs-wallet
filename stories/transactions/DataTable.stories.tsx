@@ -71,7 +71,7 @@ const dateRangeFilter = <TData,>(
 const StoryBookTableColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "type",
-    header: ({ column }) => <div className="font-medium">Type</div>,
+    header: () => <div className="font-medium">Type</div>,
     size: 100,
   },
   {
@@ -298,29 +298,7 @@ const StoryBookDataTable = ({ data }: { data: Transaction[] }) => {
   );
 };
 
-// Mock transaction data
-const mockTransactions: Transaction[] = generateDummyTransactions(
-  "67bc0cc1-9a51-48fb-8838-5be7586966e"
-).map((transaction, index) => ({
-  ...transaction,
-  id: `transaction-${index}`,
-  updatedAt: new Date(),
-}));
-
-// Few transactions for demonstration
-const fewTransactions = mockTransactions.slice(0, 5);
-
-// Different types of data sets
-const depositsOnly = mockTransactions
-  .filter((t) => t.type === "Deposit")
-  .slice(0, 10);
-
-const withdrawalsOnly = mockTransactions
-  .filter((t) => t.type === "Withdrawal")
-  .slice(0, 10);
-
-// Empty data for demonstration
-const emptyTransactions: Transaction[] = [];
+// Mock transaction data (removed unused variables to fix linter warnings)
 
 const meta = {
   title: "Components/DataTable",
@@ -452,7 +430,14 @@ export const WithFewItems: Story = {
 // Deposits only
 export const DepositsOnly: Story = {
   args: {
-    data: generateDummyTransactions(10).filter((t) => t.type === "Deposit"),
+    data: generateDummyTransactions("test-user")
+      .filter((t) => t.type === "Deposit")
+      .slice(0, 10)
+      .map((t, i) => ({
+        ...t,
+        id: `deposit-${i}`,
+        updatedAt: t.createdAt,
+      })),
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
@@ -480,7 +465,14 @@ export const DepositsOnly: Story = {
 // Withdrawals only
 export const WithdrawalsOnly: Story = {
   args: {
-    data: generateDummyTransactions(10).filter((t) => t.type === "Withdrawal"),
+    data: generateDummyTransactions("test-user")
+      .filter((t) => t.type === "Withdrawal")
+      .slice(0, 10)
+      .map((t, i) => ({
+        ...t,
+        id: `withdrawal-${i}`,
+        updatedAt: t.createdAt,
+      })),
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
