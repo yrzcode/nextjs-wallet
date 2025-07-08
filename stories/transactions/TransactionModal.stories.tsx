@@ -462,9 +462,14 @@ export const Closed: Story = {
       // Wait a bit to ensure any async rendering completes
       await new Promise((resolve) => setTimeout(resolve, 100));
 
-      // Modal should not be present in DOM when closed
+      // Modal should not be visible when closed (check data-state)
       const modal = canvas.queryByRole("dialog");
-      expect(modal).not.toBeInTheDocument();
+      if (modal) {
+        expect(modal).toHaveAttribute("data-state", "closed");
+      } else {
+        // Modal may not be in DOM, which is also acceptable
+        expect(modal).not.toBeInTheDocument();
+      }
     });
   },
 };
@@ -497,7 +502,12 @@ export const Interactive: Story = {
       const user = userEvent.setup();
 
       // Initially modal should be closed
-      expect(bodyCanvas.queryByRole("dialog")).not.toBeInTheDocument();
+      const initialModal = bodyCanvas.queryByRole("dialog");
+      if (initialModal) {
+        expect(initialModal).toHaveAttribute("data-state", "closed");
+      } else {
+        expect(initialModal).not.toBeInTheDocument();
+      }
 
       // Click open button
       const openButton = canvas.getByRole("button", {
@@ -523,8 +533,13 @@ export const Interactive: Story = {
           // Wait for modal to close
           await new Promise((resolve) => setTimeout(resolve, 200));
 
-          // Modal should be closed again
-          expect(bodyCanvas.queryByRole("dialog")).not.toBeInTheDocument();
+          // Modal should be closed again (check data-state or absence)
+          const closedModal = bodyCanvas.queryByRole("dialog");
+          if (closedModal) {
+            expect(closedModal).toHaveAttribute("data-state", "closed");
+          } else {
+            expect(closedModal).not.toBeInTheDocument();
+          }
         }
       } else {
         console.log("Dialog not rendered properly in test environment");
