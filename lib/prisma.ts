@@ -8,6 +8,9 @@ if (!process.env.DATABASE_URL) {
 	);
 }
 
+// Check if we're in build time (Vercel build environment)
+const isBuildTime = process.env.VERCEL && !process.env.DATABASE_URL;
+
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 const prisma =

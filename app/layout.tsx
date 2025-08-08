@@ -7,6 +7,9 @@ import AppNavbar from "@/components/layouts/AppNavbar";
 import AppSidebar from "@/components/layouts/AppSiderbar/AppSidebar";
 import { Toaster } from "sonner";
 
+// Force dynamic rendering to avoid build-time database connections
+export const dynamic = "force-dynamic";
+
 const roboto = Roboto({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata: Metadata = {

@@ -64,9 +64,11 @@ DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-ID].supabase
 
 The project has been configured to:
 
-- Use dynamic rendering to avoid build-time database connections
-- Add database connection error handling
-- Return empty data when database is unavailable
+- Use dynamic rendering (`export const dynamic = 'force-dynamic'`) for all database-dependent pages
+- Add database connection error handling in all data fetching functions
+- Return default/empty data when database is unavailable during build
+- Configure Next.js with `output: 'standalone'` for better deployment compatibility
+- Add error handling to `getUserById` function to prevent build failures
 
 ## Important Notes
 
