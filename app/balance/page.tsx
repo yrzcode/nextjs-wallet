@@ -1,6 +1,9 @@
 import { getBalanceData } from "@/actions/transactions";
 import BalanceCard from "@/components/balance/BalanceCard";
 
+// Force dynamic rendering to avoid build-time database connections
+export const dynamic = 'force-dynamic';
+
 interface BalancePageProps {
   searchParams: Promise<{
     filter?: string;

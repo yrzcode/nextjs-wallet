@@ -50,8 +50,27 @@
 - `scripts/migrate-from-sqlite.ts` - New migration script
 - `SUPABASE_SETUP.md` - New setup documentation
 
+## Vercel Deployment Configuration
+
+### Environment Variables Setup
+
+Add the following environment variables in your Vercel project settings:
+
+``` env
+DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.[YOUR-PROJECT-ID].supabase.co:5432/postgres?schema=public
+```
+
+### Build Optimizations
+
+The project has been configured to:
+
+- Use dynamic rendering to avoid build-time database connections
+- Add database connection error handling
+- Return empty data when database is unavailable
+
 ## Important Notes
 
 - The old SQLite database file `prisma/database.db` still exists and can be safely deleted
 - Ensure environment variables are properly configured in production
 - It is recommended to back up important data before migration
+- For Vercel deployment, ensure your Supabase database is properly configured and running

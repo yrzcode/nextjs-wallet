@@ -28,8 +28,18 @@ const transactionSchema = z.object({
 });
 
 export const getAllTransactions = async (): Promise<Transaction[]> => {
-	const transactions = await prisma.transaction.findMany();
-	return transactions;
+	try {
+		const transactions = await prisma.transaction.findMany({
+			orderBy: {
+				date: "desc",
+			},
+		});
+		return transactions;
+	} catch (error) {
+		console.error("Database connection error:", error);
+		// Return empty array if database is not available
+		return [];
+	}
 };
 
 export const getTransactionsByUserId = async (
@@ -176,41 +186,53 @@ export const deleteTransaction = async (transactionId: string) => {
 };
 
 export const getBalanceData = async (filter?: string) => {
-	const allTransactions = await prisma.transaction.findMany({
-		orderBy: {
-			date: "desc",
-		},
-	});
+	try {
+		const allTransactions = await prisma.transaction.findMany({
+			orderBy: {
+				date: "desc",
+			},
+		});
 
-	let filteredTransactions = allTransactions;
+		let filteredTransactions = allTransactions;
 
-	// Filter transactions based on filter parameter
-	if (filter === "income") {
-		filteredTransactions = allTransactions.filter((t) => t.type === "Deposit");
-	} else if (filter === "expenditure") {
-		filteredTransactions = allTransactions.filter(
-			(t) => t.type === "Withdrawal",
-		);
+		// Filter transactions based on filter parameter
+		if (filter === "income") {
+			filteredTransactions = allTransactions.filter((t) => t.type === "Deposit");
+		} else if (filter === "expenditure") {
+			filteredTransactions = allTransactions.filter(
+				(t) => t.type === "Withdrawal",
+			);
+		}
+
+		// Calculate total income
+		const totalIncome = allTransactions
+			.filter((t) => t.type === "Deposit")
+			.reduce((sum, t) => sum + t.amount, 0);
+
+		// Calculate total expenditure
+		const totalExpenditure = allTransactions
+			.filter((t) => t.type === "Withdrawal")
+			.reduce((sum, t) => sum + t.amount, 0);
+
+		// Calculate balance
+		const balance = totalIncome - totalExpenditure;
+
+		return {
+			totalIncome,
+			totalExpenditure,
+			balance,
+			transactions: filteredTransactions,
+			filter: filter || "all",
+		};
+	} catch (error) {
+		console.error("Database connection error:", error);
+		// Return empty data if database is not available
+		return {
+			totalIncome: 0,
+			totalExpenditure: 0,
+			balance: 0,
+			transactions: [],
+			filter: filter || "all",
+		};
 	}
-
-	// Calculate total income
-	const totalIncome = allTransactions
-		.filter((t) => t.type === "Deposit")
-		.reduce((sum, t) => sum + t.amount, 0);
-
-	// Calculate total expenditure
-	const totalExpenditure = allTransactions
-		.filter((t) => t.type === "Withdrawal")
-		.reduce((sum, t) => sum + t.amount, 0);
-
-	// Calculate balance
-	const balance = totalIncome - totalExpenditure;
-
-	return {
-		totalIncome,
-		totalExpenditure,
-		balance,
-		transactions: filteredTransactions,
-		filter: filter || "all",
-	};
 };
