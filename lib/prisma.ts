@@ -1,19 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import path from "node:path";
-import fs from "node:fs";
 
-// Set DATABASE_URL if not already set
+// Check if DATABASE_URL is set
 if (!process.env.DATABASE_URL) {
-	const dbPath = path.join(process.cwd(), "prisma", "database.db");
-	process.env.DATABASE_URL = `file:${dbPath}`;
-	console.log("🔧 Setting DATABASE_URL to:", process.env.DATABASE_URL);
-
-	// Check if database file exists
-	if (fs.existsSync(dbPath)) {
-		console.log("✅ Database file exists at:", dbPath);
-	} else {
-		console.log("❌ Database file NOT found at:", dbPath);
-	}
+	console.log("❌ DATABASE_URL environment variable is not set!");
+	console.log(
+		"Please create a .env.local file with your Supabase database URL.",
+	);
 }
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
